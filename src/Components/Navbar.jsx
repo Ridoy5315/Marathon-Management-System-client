@@ -75,7 +75,7 @@ const Navbar = (props) => {
         {/* divider */}
         <div className="divider divider-horizontal py-2 mx-0"></div>
         <div className="flex gap-3">
-          <Link
+          <Link to='/login'
             onClick={() => setActiveButton("Login")}
             className={`py-2 px-4 rounded ${
               activeButton === "Login"
@@ -85,7 +85,7 @@ const Navbar = (props) => {
           >
             Login
           </Link>
-          <Link
+          <Link to='/registration'
             onClick={() => setActiveButton("Register")}
             className={`py-2 px-4 rounded ${
               activeButton === "Register"
