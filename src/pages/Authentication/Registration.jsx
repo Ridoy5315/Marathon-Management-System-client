@@ -9,8 +9,8 @@ import registerLottieData from "../../assets/lottie/Register.json";
 import Lottie from "lottie-react";
 
 const Register = (props) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+//   const navigate = useNavigate();
+//   const location = useLocation();
   const [showPassword, setShowPassword] = useState(false);
   const [passError, setPassError] = useState(null);
   const [nameError, setNameError] = useState(null);
