@@ -10,8 +10,7 @@ const Main = (props) => {
       <section className="w-11/12 mx-auto mt-4">
         <Navbar></Navbar>
       </section>
-      <div className='min-h-[calc(100vh-345px)]'></div>
-      <section>
+      <section className='min-h-[calc(100vh-345px)]'>
           <Outlet></Outlet>
       </section>
       <section>

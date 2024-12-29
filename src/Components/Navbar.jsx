@@ -72,8 +72,9 @@ const Navbar = (props) => {
         <ul className="menu menu-horizontal text-base text-primary-color ">
           {links}
         </ul>
-        <div className="divider divider-horizontal py-2 mx-1"></div>
-        <div className="flex gap-6">
+        {/* divider */}
+        <div className="divider divider-horizontal py-2 mx-0"></div>
+        <div className="flex gap-3">
           <Link
             onClick={() => setActiveButton("Login")}
             className={`py-2 px-4 rounded ${
