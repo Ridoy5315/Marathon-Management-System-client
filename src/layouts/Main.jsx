@@ -1,16 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
+import { Outlet } from "react-router-dom";
 
-const Main = props => {
-     return (
-          <div>
-               <p>Hello Ridoy</p>
-          </div>
-     );
+const Main = (props) => {
+  return (
+    <div>
+      <section className="w-11/12 mx-auto mt-4">
+        <Navbar></Navbar>
+      </section>
+      <div className='min-h-[calc(100vh-345px)]'></div>
+      <section>
+          <Outlet></Outlet>
+      </section>
+      <section>
+          <Footer></Footer>
+      </section>
+    </div>
+  );
 };
 
-Main.propTypes = {
-     
-};
+Main.propTypes = {};
 
 export default Main;
