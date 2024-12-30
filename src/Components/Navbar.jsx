@@ -17,7 +17,7 @@ const Navbar = (props) => {
       >
         Home
       </Link>
-      <Link
+      <Link to='/marathons'
         onClick={() => setActiveLink("Marathons")}
         className={`py-1 px-3 rounded-md ${
           activeLink === "Marathons"
@@ -26,6 +26,16 @@ const Navbar = (props) => {
         }`}
       >
         Marathons
+      </Link>
+      <Link to='/dashboard'
+        onClick={() => setActiveLink("Dashboard")}
+        className={`py-1 px-3 rounded-md ${
+          activeLink === "Dashboard"
+            ? "bg-primary-color text-white"
+            : "text-primary-color font-semibold hover:bg-gray-200"
+        }`}
+      >
+        Dashboard
       </Link>
     </nav>
   );
