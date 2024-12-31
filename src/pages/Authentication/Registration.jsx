@@ -98,21 +98,21 @@ const Register = (props) => {
         );
       });
   };
-  // const handleSignInWithGoogle = () => {
-  //   signInWithGoogle().then((result) => {
-  //     setUser(result.user);
-  //     const email = result.user.email;
-  //     const name = result.user.displayName;
-  //     const photo = result.user.photoURL;
-  //     const newUser = { name, email, photo };
-  //     try {
-  //       axios.post(`${import.meta.env.VITE_API_URL}/users`, newUser);
-  //       toast.success("Registration complete!");
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //     //  navigate(location?.state ? location.state : "/");
-  //   });
+  const handleSignInWithGoogle = () => {
+    signInWithGoogle().then((result) => {
+      setUser(result.user);
+      const email = result.user.email;
+      const name = result.user.displayName;
+      const photo = result.user.photoURL;
+      const newUser = { name, email, photo };
+      try {
+        axios.post(`${import.meta.env.VITE_API_URL}/users`, newUser);
+        toast.success("Registration complete!");
+      } catch (error) {
+        console.log(error);
+      }
+      //  navigate(location?.state ? location.state : "/");
+    });
   };
   return (
     <div className="w-10/12 mx-auto my-20 grid grid-cols-2 gap-16">
