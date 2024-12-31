@@ -17,7 +17,20 @@ const CustomerFeedback = (props) => {
     <div className="w-10/12 mx-auto mt-24">
       <div className="grid grid-cols-5 gap-6">
         <div className="col-span-3">
-         
+          <Swiper
+            slidesPerView={2}
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Autoplay, Pagination]}
+            className="mySwiper"
+          >
             <SwiperSlide>
               <div className="bg-gray-200 h-60 p-7 pt-10 rounded-3xl flex flex-col gap-6">
                 <p>
