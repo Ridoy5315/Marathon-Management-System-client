@@ -2,9 +2,27 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import logoPhoto from "../assets/4 copy.png";
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 const Navbar = (props) => {
+  const { user, logOutUser } = useAuth();
   const [activeLink, setActiveLink] = useState("home");
   const [activeButton, setActiveButton] = useState("Login");
+
+  const handleLogOut = () => {
+    logOutUser().then(() => {
+      toast.success("Log out successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    });
+  };
   const links = (
     <nav className="flex gap-2">
       <Link
@@ -17,7 +35,8 @@ const Navbar = (props) => {
       >
         Home
       </Link>
-      <Link to='/marathons'
+      <Link
+        to="/marathons"
         onClick={() => setActiveLink("Marathons")}
         className={`py-1 px-3 rounded-md ${
           activeLink === "Marathons"
@@ -27,16 +46,21 @@ const Navbar = (props) => {
       >
         Marathons
       </Link>
-      <Link to='/dashboard'
-        onClick={() => setActiveLink("Dashboard")}
-        className={`py-1 px-3 rounded-md ${
-          activeLink === "Dashboard"
-            ? "bg-primary-color text-white"
-            : "text-primary-color font-semibold hover:bg-gray-200"
-        }`}
-      >
-        Dashboard
-      </Link>
+      {user ? (
+        <Link
+          to="/dashboard"
+          onClick={() => setActiveLink("Dashboard")}
+          className={`py-1 px-3 rounded-md ${
+            activeLink === "Dashboard"
+              ? "bg-primary-color text-white"
+              : "text-primary-color font-semibold hover:bg-gray-200"
+          }`}
+        >
+          Dashboard
+        </Link>
+      ) : (
+        ""
+      )}
     </nav>
   );
   return (
@@ -84,28 +108,46 @@ const Navbar = (props) => {
         </ul>
         {/* divider */}
         <div className="divider divider-horizontal py-2 mx-0"></div>
-        <div className="flex gap-3">
-          <Link to='/login'
-            onClick={() => setActiveButton("Login")}
-            className={`py-2 px-4 rounded ${
-              activeButton === "Login"
-                ? "bg-primary-color text-white"
-                : "text-primary-color border border-primary-color hover:border-secondary-color font-bold hover:bg-secondary-color hover:text-white"
-            }`}
-          >
-            Login
-          </Link>
-          <Link to='/registration'
-            onClick={() => setActiveButton("Register")}
-            className={`py-2 px-4 rounded ${
-              activeButton === "Register"
-                ? "bg-primary-color text-white"
-                : "text-primary-color border border-primary-color hover:border-secondary-color font-bold hover:bg-secondary-color hover:text-white"
-            }`}
-          >
-            Register
-          </Link>
-        </div>
+        {user ? (
+          <div className="flex items-center gap-3">
+            <div className="avatar">
+              <div className="w-12 rounded-full">
+                <img src={user.photoURL} />
+              </div>
+            </div>
+            <button
+              onClick={handleLogOut}
+              className="py-2 px-4 rounded bg-primary-color text-white hover:bg-secondary-color"
+              >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-3">
+            <Link
+              to="/login"
+              onClick={() => setActiveButton("Login")}
+              className={`py-2 px-4 rounded ${
+                activeButton === "Login"
+                  ? "bg-primary-color text-white"
+                  : "text-primary-color border border-primary-color hover:border-secondary-color font-bold hover:bg-secondary-color hover:text-white"
+              }`}
+            >
+              Login
+            </Link>
+            <Link
+              to="/registration"
+              onClick={() => setActiveButton("Register")}
+              className={`py-2 px-4 rounded ${
+                activeButton === "Register"
+                  ? "bg-primary-color text-white"
+                  : "text-primary-color border border-primary-color hover:border-secondary-color font-bold hover:bg-secondary-color hover:text-white"
+              }`}
+            >
+              Register
+            </Link>
+          </div>
+        )}
 
         {/* {user ? (
           <>

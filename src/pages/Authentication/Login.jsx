@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import signInLottieData from "../../assets/lottie/Login.json";
 import Lottie from "lottie-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaFacebook, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { FaFacebook, FaGoogle, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const SignIn = (props) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,6 +25,13 @@ const SignIn = (props) => {
       .then((result) => {
         // const user = result.user;
         setUser(result.user);
+        axios
+        .post(`${import.meta.env.VITE_API_URL}/jwt`, email, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res.data);
+        });
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -56,33 +64,20 @@ const SignIn = (props) => {
       const name = result.user.displayName;
       const photo = result.user.photoURL;
       const newUser = { name, email, photo };
-      // fetch('https://vision-vault-server.vercel.app/users', {
-      //   method: 'POST',
-      //   headers: {
-      //     'content-type': 'application/json'
-      //   },
-      //   body: JSON.stringify(newUser)
-      // })
-      // .then(res => res.json())
-      // .then(data => {
-      //   if(data.insertedId){
-      //     Swal.fire({
-      //       position: "top-end",
-      //       icon: "success",
-      //       title: "You're logged in!",
-      //       showConfirmButton: false,
-      //       timer: 1500
-      //     });
-      //   }
-      // })
-      // navigate( "/auth/login");
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "You're logged in!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      try {
+        axios.post(`${import.meta.env.VITE_API_URL}/users`, newUser);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "You're logged in!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      
+      
       // navigate(location?.state ? location.state : "/");
     });
   };
@@ -144,7 +139,7 @@ const SignIn = (props) => {
             <div className="divider">Login with social accounts</div>
             <div className="flex justify-center">
               <button onClick={handleSignInWithGoogle} className="text-3xl">
-                <FaFacebook></FaFacebook>
+                <FaGoogle></FaGoogle>
               </button>
             </div>
             <div className="divider"></div>

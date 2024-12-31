@@ -8,8 +8,10 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
   updateProfile,
 } from "firebase/auth";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -43,14 +45,36 @@ const AuthProvider = ({ children }) => {
   };
   //observer current user
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
+    const unsubscribe = onAuthStateChanged(auth, async currentUser => {
+      if (currentUser?.email) {
+        setUser(currentUser)
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}/jwt`,
+          {
+            email: currentUser?.email,
+          },
+          { withCredentials: true }
+        )
+        setLoading(false)
+      } else {
+        setUser(currentUser)
+         await axios.get(
+          `${import.meta.env.VITE_API_URL}/logout`,
+          { withCredentials: true }
+        )
+        setLoading(false)
+      }
+    })
     return () => {
-      unSubscribe();
-    };
-  }, []);
+      return unsubscribe()
+    }
+  }, [])
+
+  //sign out
+  const logOutUser = () => {
+    setLoading(true);
+    return signOut(auth);
+}
 
   //update profile
   const updateUserProfile = (updatedData) => {
@@ -64,7 +88,9 @@ const AuthProvider = ({ children }) => {
     validatePassword,
     signInUser,
     signInWithGoogle,
-    updateUserProfile
+    logOutUser,
+    updateUserProfile,
+
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

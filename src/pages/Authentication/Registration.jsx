@@ -7,10 +7,13 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../providers/AuthProvider";
 import registerLottieData from "../../assets/lottie/Register.json";
 import Lottie from "lottie-react";
+import useAuth from "../../hooks/useAuth";
+import { QueryClient, useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 const Register = (props) => {
-//   const navigate = useNavigate();
-//   const location = useLocation();
+  //   const navigate = useNavigate();
+  //   const location = useLocation();
   const [showPassword, setShowPassword] = useState(false);
   const [passError, setPassError] = useState(null);
   const [nameError, setNameError] = useState(null);
@@ -21,9 +24,22 @@ const Register = (props) => {
     validatePassword,
     signInWithGoogle,
     updateUserProfile,
-  } = useContext(AuthContext);
+  } = useAuth();
 
-  const handleRegistration = (e) => {
+  const { isPending, mutateAsync } = useMutation({
+    mutationFn: async (usersData) => {
+      await axios.post(`${import.meta.env.VITE_API_URL}/users`, usersData);
+    },
+    onSuccess: () => {
+      console.log("data saved");
+      QueryClient.invalidateQueries({ queryKey: ["marathons"] });
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  const handleRegistration = async (e) => {
     e.preventDefault();
 
     setNameError(null);
@@ -52,38 +68,19 @@ const Register = (props) => {
           displayName: name,
           photoURL: photo,
         })
-          .then((result) => {
+          .then(() => {
             setUser({ ...user, displayName: name, photoURL: photo });
             //   navigate(location?.state ? location.state : "/");
           })
           .catch(() => {});
         const newUser = { name, email, photo };
-        //    fetch("https://vision-vault-server.vercel.app/users", {
-        //      method: "POST",
-        //      headers: {
-        //        "content-type": "application/json",
-        //      },
-        //      body: JSON.stringify(newUser),
-        //    })
-        //      .then((res) => res.json())
-        //      .then((data) => {
-        //        if (data.insertedId) {
-        //          Swal.fire({
-        //            position: "top-end",
-        //            icon: "success",
-        //            title: "Registration complete!",
-        //            showConfirmButton: false,
-        //            timer: 1500,
-        //          });
-        //        }
-        //      });
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Registration complete!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        try {
+          axios.post(`${import.meta.env.VITE_API_URL}/users`, newUser);
+          form.reset();
+          toast.success("Registration complete!");
+        } catch (error) {
+          console.log(error);
+        }
       })
       .catch(() => {
         toast.warn(
@@ -101,41 +98,21 @@ const Register = (props) => {
         );
       });
   };
-  const handleSignInWithGoogle = () => {
-    signInWithGoogle().then((result) => {
-      setUser(result.user);
-      const email = result.user.email;
-      const name = result.user.displayName;
-      const photo = result.user.photoURL;
-      const newUser = { name, email, photo };
-      //  fetch("https://vision-vault-server.vercel.app/users", {
-      //    method: "POST",
-      //    headers: {
-      //      "content-type": "application/json",
-      //    },
-      //    body: JSON.stringify(newUser),
-      //  })
-      //    .then((res) => res.json())
-      //    .then((data) => {
-      //      if (data.insertedId) {
-      //        Swal.fire({
-      //          position: "top-end",
-      //          icon: "success",
-      //          title: "Registration complete!",
-      //          showConfirmButton: false,
-      //          timer: 1500,
-      //        });
-      //      }
-      //    });
-      //  navigate(location?.state ? location.state : "/");
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Registration complete!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    });
+  // const handleSignInWithGoogle = () => {
+  //   signInWithGoogle().then((result) => {
+  //     setUser(result.user);
+  //     const email = result.user.email;
+  //     const name = result.user.displayName;
+  //     const photo = result.user.photoURL;
+  //     const newUser = { name, email, photo };
+  //     try {
+  //       axios.post(`${import.meta.env.VITE_API_URL}/users`, newUser);
+  //       toast.success("Registration complete!");
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     //  navigate(location?.state ? location.state : "/");
+  //   });
   };
   return (
     <div className="w-10/12 mx-auto my-20 grid grid-cols-2 gap-16">
