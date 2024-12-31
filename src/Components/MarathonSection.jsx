@@ -19,7 +19,7 @@ const MarathonSection = (props) => {
           <h2 className="text-4xl font-semibold">On the <span className="text-secondary-color">Run!</span></h2>
           <p className="px-44 font-light">Marathons aren't just races, we are celebrations of resilience, unity, and the joy of movement</p>
       </div>
-      <div className="grid grid-cols-3 gap-6 mt-10">
+      <div className="grid grid-cols-3 gap-4 mt-10">
         {marathons.map((marathon) => (
           <div key={marathon._id} className="rounded-xl shadow-inner  shadow-blue-800/20 hover:shadow-rose-500/20 transform transition-transform duration-300 hover:scale-105">
             <div className="lg:h-56 w-full p-3">
