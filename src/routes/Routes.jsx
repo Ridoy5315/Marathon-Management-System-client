@@ -6,6 +6,8 @@ import Registration from '../pages/Authentication/Registration'
 import Dashboard from '../pages/Dashboard'
 import AddMarathon from '../pages/dashboardPages/addMarathon'
 import Marathons from '../pages/Marathons'
+import MarathonDetails from '../pages/MarathonDetails'
+import RegistrationForm from '../pages/RegistrationForm'
 
 const router = createBrowserRouter([
      {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
                {
                     path: '/marathons',
                     element: <Marathons></Marathons>
+               },
+               {
+                    path: '/marathon-details/:id',
+                    element: <MarathonDetails></MarathonDetails>
+               },
+               {
+                    path: '/registration-from/:email',
+                    element: <RegistrationForm></RegistrationForm>
                },
                {
                     path: '/dashboard',

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const MarathonSection = (props) => {
   const [marathons, setMarathons] = useState([]);
@@ -48,9 +49,9 @@ const MarathonSection = (props) => {
               </div>
               <div className="divider"></div>
               <div className="flex justify-end ">
-                <button className="bg-primary-color text-white py-1 px-6 rounded-xl">
+                <Link to={`/marathon-details/${marathon._id}`} className="bg-primary-color text-white py-1 px-6 rounded-xl">
                   See Details
-                </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const MarathonCard = ({ marathon }) => {
   const {
@@ -41,7 +42,7 @@ const MarathonCard = ({ marathon }) => {
         </div>
         <div className="divider"></div>
         <div className="flex justify-end ">
-          <button className="bg-primary-color text-white py-1 px-6 rounded-xl">See Details</button>
+          <Link to={`/marathon-details/${_id}`} className="bg-primary-color text-white py-1 px-6 rounded-xl">See Details</Link>
         </div>
       </div>
     </div>
