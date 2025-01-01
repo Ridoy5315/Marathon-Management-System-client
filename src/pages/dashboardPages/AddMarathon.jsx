@@ -13,12 +13,9 @@ const AddMarathon = (props) => {
           className="container flex flex-col mx-auto space-y-12"
         >
           <fieldset className="grid grid-cols-5 gap-4 px-8 rounded-md">
-            <div className="space-y-2 col-span-2">
-              <p className="font-medium">Personal Inormation</p>
-              <p className="text-xs">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Adipisci fuga autem eum!
-              </p>
+            <div className="flex justify-center items-center col-span-2">
+              <p className="font-semibold text-primary-color text-4xl leading-relaxed">Revolutionize Your Marathon Planning with Ease and Efficiency!</p>
+              
             </div>
             <div className="col-span-3 space-y-7">
               {/* row one */}
@@ -134,8 +131,8 @@ const AddMarathon = (props) => {
                   />
                 </div>
               </div>
-              <div className="flex justify-end">
-                <button className="w-full transition-colors duration-300 transhtmlForm bg-[#f0e8e8] hover:bg-[#f4d6d6] text-secondary-color py-1 rounded-md font-semibold">
+              <div className="flex flex-row-reverse">
+                <button className="transition-colors duration-300 transhtmlForm bg-[#c2c9d8] px-10  hover:bg-[#f4d6d6] text-primary-color py-2 rounded-md font-semibold">
                   Submit
                 </button>
               </div>

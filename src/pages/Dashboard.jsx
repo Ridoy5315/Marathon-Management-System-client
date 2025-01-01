@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import AddMarathon from "./dashboardPages/addMarathon";
+import MyMarathonList from "./dashboardPages/MyMarathonList";
+import MyApplyList from "./dashboardPages/MyApplyList";
 
 const Dashboard = (props) => {
   const [activeLink, setActiveLink] = useState("Add Marathon");
+  console.log(activeLink);
   return (
     <div className="grid grid-cols-5 mx-6">
       <div className="col-span-1">
@@ -43,7 +46,10 @@ const Dashboard = (props) => {
         </nav>
       </div>
       <div className="col-span-4">
-        <AddMarathon></AddMarathon>
+        {
+          activeLink === 'Add Marathon' ? <AddMarathon></AddMarathon> : activeLink === 'My Marathon List' ? <MyMarathonList></MyMarathonList> : <MyApplyList></MyApplyList>
+        }
+        
       </div>
     </div>
   );
