@@ -1,13 +1,79 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
+import useAuth from "../hooks/useAuth";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const RegistrationForm = (props) => {
-     const [startDate, setStartDate] = useState(new Date());
+  const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+  const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+
+  const { _id, marathon_title, marathon_start_date } = formData || {};
+
+  useEffect(() => {
+    const organizerData = async () => {
+      try {
+        const { data } = await axiosSecure.get(`/marathon/${id}`);
+        setFormData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    organizerData();
+  }, [axiosSecure, id]);
+
+  const handleRegistrationMarathon = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    const userFirstName = form.firstName.value;
+    const userLastName = form.lastName.value;
+    const userEmail = form.email.value;
+    const userContactNumber = form.firstName.value;
+    const userAddress = form.address.value;
+
+    const registrationData = {
+      applicant: {
+        userFirstName,
+        userLastName,
+        userEmail,
+        userContactNumber,
+        userAddress,
+      },
+      marathon_title,
+      marathon_start_date,
+      competition_id: _id,
+    };
+
+    try {
+      // 1. make a post request
+      await axiosSecure.post(
+        `/add-registered-marathon`,
+        registrationData
+      )
+      // 2. Reset form
+      form.reset()
+      // 3. Show toast and navigate
+      toast.success('You have successfully completed the registration')
+      navigate('/my-marathon-list')
+    } catch (err) {
+      toast.error("You have already apply on this Competition!")
+      console.log(err)
+    }
+  };
+
   return (
     <div className="w-11/12 mx-auto mt-24">
       <section className=" text-gray-600">
         <form
+          onSubmit={handleRegistrationMarathon}
           noValidate=""
           action=""
           className="container flex flex-col mx-auto space-y-12"
@@ -15,7 +81,7 @@ const RegistrationForm = (props) => {
           <fieldset className="grid grid-cols-5 gap-8 rounded-md">
             <div className="flex justify-center items-center col-span-2">
               <p className="font-semibold text-primary-color text-4xl leading-relaxed">
-                Revolutionize Your Marathon Planning with Ease and Efficiency!
+                Celebrate your hard work with every step toward the finish line.
               </p>
             </div>
             <div className="col-span-3 space-y-7">
@@ -23,73 +89,82 @@ const RegistrationForm = (props) => {
               <div className="grid grid-cols-2 gap-5">
                 <div className="">
                   <label className="font-semibold text-primary-color">
-                    Marathon Title
+                    First Name
                   </label>
                   <input
-                    id="firstname"
                     type="text"
-                    name="title"
-                    placeholder="Title"
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                    name="firstName"
+                    placeholder="First Name"
+                    className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                   />
                 </div>
                 <div className="">
                   <label className="font-semibold text-primary-color">
-                    Location
+                    Last Name
                   </label>
                   <input
-                    id="lastname"
                     type="text"
-                    name="location"
-                    placeholder="Location"
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                    name="lastName"
+                    placeholder="Last Name"
+                    className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                  />
+                </div>
+              </div>
+              {/* second row */}
+              <div className="grid grid-cols-2 gap-5">
+                <div className="">
+                  <label className="font-semibold text-primary-color">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    defaultValue={user?.email}
+                    disabled
+                    className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                  />
+                </div>
+                <div className="">
+                  <label className="font-semibold text-primary-color">
+                    Contact Number
+                  </label>
+                  <input
+                    type="number"
+                    name="number"
+                    placeholder="Number"
+                    className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                   />
                 </div>
               </div>
 
-              {/* row two */}
+              {/* third row */}
               <div className="col-span-full sm:col-span-3">
                 <label className="font-semibold text-primary-color">
-                  Marathon Image
+                  Address
                 </label>
                 <input
-                  id="email"
                   type="text"
-                  name="image"
-                  placeholder="Image URL"
-                  className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                  name="address"
+                  placeholder="Your address"
+                  className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
                 />
-              </div>
-
-              {/* row three */}
-              <div className="">
-                <label className="font-semibold text-primary-color">
-                  Description
-                </label>
-                <textarea
-                  className="block w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                  name="description"
-                  id="description"
-                ></textarea>
               </div>
 
               {/* row four */}
               <div className="grid grid-cols-2 gap-5">
-                <div className="flex flex-col gap-1">
-                  <label className="text-primary-color" htmlFor="category">
-                    Running distance
+                <div className="">
+                  <label className="font-semibold text-primary-color">
+                    Title
                   </label>
-                  <select
-                    name="distance"
-                    id="category"
-                    defaultValue="choose one"
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                  >
-                    <option value="Choose one">Choose one</option>
-                    <option value="3 kilometer">3 kilometer</option>
-                    <option value="10 kilometer">10 kilometer</option>
-                    <option value="25 kilometer">25 kilometer</option>
-                  </select>
+                  <input
+                    type="text"
+                    name="title"
+                    placeholder="Title"
+                    defaultValue={marathon_title}
+                    disabled
+                    className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                  />
                 </div>
                 <div className="flex flex-col gap-1">
                   <label className="text-primary-color">
@@ -98,40 +173,14 @@ const RegistrationForm = (props) => {
 
                   {/* Date Picker Input Field */}
                   <DatePicker
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                    selected={marathon_start_date}
+                    disabled
+                    // onChange={(date) => setMarathonStartDate(date)}
                   />
                 </div>
               </div>
 
-              {/* row five */}
-              <div className="grid grid-cols-2 gap-5">
-                <div className="flex flex-col gap-1">
-                  <label className="text-primary-color">
-                    Start Registration Date
-                  </label>
-
-                  {/* Date Picker Input Field */}
-                  <DatePicker
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label className="text-primary-color">
-                    End Registration Date
-                  </label>
-
-                  {/* Date Picker Input Field */}
-                  <DatePicker
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                  />
-                </div>
-              </div>
               <div className="flex flex-row-reverse">
                 <button className="transition-colors duration-300 transhtmlForm bg-[#c2c9d8] px-10  hover:bg-[#f4d6d6] text-primary-color py-2 rounded-md font-semibold">
                   Submit

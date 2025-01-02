@@ -67,15 +67,19 @@ const MarathonDetails = (props) => {
     marathonDetails();
   }, [id]);
 
-  const handleRegisterFrom = () => {
+  const handleRegister = () => {
     if (user?.email === user_email) {
-      return toast.error(" You cant apply in your own competition");
+      return toast.error("You cant apply in your own competition");
     }
 
     if (compareAsc(new Date(), new Date(end_registration_date)) === 1) {
       return toast.error("Registration deadline is expired");
-    } else {
-      navigate(`/registration-from/${user_email}`);
+    } 
+    if(compareAsc( new Date(start_registration_date), new Date()) === 1){
+      return toast.error("Registration has not started yet");
+    }
+    else {
+      navigate(`/registration-from/${_id}`);
     }
   };
 
@@ -148,7 +152,11 @@ const MarathonDetails = (props) => {
                 <p className="font-medium text-xl">Registration start date </p>
               </div>
               <div className="text-center">
-                <span className="">{format(new Date(start_registration_date), 'PPP')}</span>
+              {start_registration_date && (
+                  <span className="">
+                    {format(new Date(start_registration_date), "PPPP")}
+                  </span>
+                )}
               </div>
             </div>
             {/* registration end date */}
@@ -160,7 +168,11 @@ const MarathonDetails = (props) => {
                 <p className="font-medium text-xl">Registration deadline </p>
               </div>
               <div className="text-center">
-                <span className="">{format(new Date(end_registration_date), 'PPP')}</span>
+              {end_registration_date && (
+                  <span className="">
+                    {format(new Date(end_registration_date), "PPPP")}
+                  </span>
+                )}
               </div>
             </div>
             {/* Competition start date */}
@@ -172,7 +184,11 @@ const MarathonDetails = (props) => {
                 <p className="font-medium text-xl">Marathon start date </p>
               </div>
               <div className="text-center">
-                <span className="">{format(new Date(marathon_start_date), 'PPPP')}</span>
+                {marathon_start_date && (
+                  <span className="">
+                    {format(new Date(marathon_start_date), "PPPP")}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -274,7 +290,7 @@ const MarathonDetails = (props) => {
               </div>
               <div className="flex flex-row-reverse">
                 <button
-                  onClick={handleRegisterFrom}
+                  onClick={handleRegister}
                   className="bg-primary-color text-white px-10 py-2.5 rounded-xl"
                 >
                   Register

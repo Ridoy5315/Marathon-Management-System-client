@@ -28,7 +28,7 @@ const router = createBrowserRouter([
                     element: <MarathonDetails></MarathonDetails>
                },
                {
-                    path: '/registration-from/:email',
+                    path: '/registration-from/:id',
                     element: <RegistrationForm></RegistrationForm>
                },
                {

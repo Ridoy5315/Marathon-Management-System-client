@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
 
 const MarathonCard = ({ marathon }) => {
   const {
@@ -29,20 +30,29 @@ const MarathonCard = ({ marathon }) => {
         <div className="font-light text-sm space-y-2">
           <p>
             Registration start date:{" "}
-            <span className="bg-[#90c5e6] font-semibold text-white py-0.5 px-2 rounded-xl">
-              {start_registration_date}
-            </span>
+            {start_registration_date && (
+              <span className="bg-[#90c5e6] font-semibold text-white py-0.5 px-2 rounded-xl">
+                {format(new Date(start_registration_date), "P")}
+              </span>
+            )}
           </p>
           <p>
             Registration end date:{" "}
-            <span className="bg-[#90c5e6] font-semibold text-white py-0.5 px-2 rounded-xl">
-              {end_registration_date}
-            </span>
+            {end_registration_date && (
+              <span className="bg-[#90c5e6] font-semibold text-white py-0.5 px-2 rounded-xl">
+                {format(new Date(end_registration_date), "P")}
+              </span>
+            )}
           </p>
         </div>
         <div className="divider"></div>
         <div className="flex justify-end ">
-          <Link to={`/marathon-details/${_id}`} className="bg-primary-color text-white py-1 px-6 rounded-xl">See Details</Link>
+          <Link
+            to={`/marathon-details/${_id}`}
+            className="bg-primary-color text-white py-1 px-6 rounded-xl"
+          >
+            See Details
+          </Link>
         </div>
       </div>
     </div>
