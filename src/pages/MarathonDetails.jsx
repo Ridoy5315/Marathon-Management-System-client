@@ -7,7 +7,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaCalendarAlt, FaFastBackward } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
-import { compareAsc } from "date-fns";
+import { compareAsc, format } from "date-fns";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 const MarathonDetails = (props) => {
@@ -108,14 +108,6 @@ const MarathonDetails = (props) => {
               {marathon_title}
             </h3>
             <p className="font-light text-xl">{description}</p>
-            <div className="">
-              <button
-                onClick={handleRegisterFrom}
-                className="bg-primary-color text-white px-5 py-2 rounded-xl"
-              >
-                Register
-              </button>
-            </div>
           </div>
         </div>
 
@@ -156,7 +148,7 @@ const MarathonDetails = (props) => {
                 <p className="font-medium text-xl">Registration start date </p>
               </div>
               <div className="text-center">
-                <span className="">{start_registration_date}</span>
+                <span className="">{format(new Date(start_registration_date), 'PPP')}</span>
               </div>
             </div>
             {/* registration end date */}
@@ -168,7 +160,7 @@ const MarathonDetails = (props) => {
                 <p className="font-medium text-xl">Registration deadline </p>
               </div>
               <div className="text-center">
-                <span className="">{end_registration_date}</span>
+                <span className="">{format(new Date(end_registration_date), 'PPP')}</span>
               </div>
             </div>
             {/* Competition start date */}
@@ -180,7 +172,7 @@ const MarathonDetails = (props) => {
                 <p className="font-medium text-xl">Marathon start date </p>
               </div>
               <div className="text-center">
-                <span className="">{marathon_start_date}</span>
+                <span className="">{format(new Date(marathon_start_date), 'PPPP')}</span>
               </div>
             </div>
           </div>
@@ -194,73 +186,99 @@ const MarathonDetails = (props) => {
             </div>
 
             {/* countdown timer */}
-            <div className="flex justify-center space-x-4">
-              <div className="flex flex-col items-center">
-                <CountdownCircleTimer
-                  isPlaying
-                  duration={timeLeft.days * 24 * 3600}
-                  size={130}
-                  colors={[
-                    ["#004777", 0.33],
-                    ["#F7B801", 0.33],
-                    ["#A30000", 0.33],
-                  ]}
-                  onComplete={() => console.log("Days up")}
-                >
-                  {() => <div className="text-4xl font-semibold">{timeLeft.days}</div>}
-                </CountdownCircleTimer>
-                <span className="text-sm">Days</span>
-              </div>
+            <div className="flex flex-col gap-20">
+              <div className="flex justify-center space-x-4">
+                <div className="flex flex-col items-center">
+                  <CountdownCircleTimer
+                    isPlaying
+                    duration={timeLeft.days * 24 * 3600}
+                    size={130}
+                    colors={[
+                      ["#004777", 0.33],
+                      ["#F7B801", 0.33],
+                      ["#A30000", 0.33],
+                    ]}
+                    onComplete={() => console.log("Days up")}
+                  >
+                    {() => (
+                      <div className="text-4xl font-semibold">
+                        {timeLeft.days}
+                      </div>
+                    )}
+                  </CountdownCircleTimer>
+                  <span className="text-sm">Days</span>
+                </div>
 
-              <div className="flex flex-col items-center">
-                <CountdownCircleTimer
-                  isPlaying
-                  duration={timeLeft.hours * 3600}
-                  size={130}
-                  colors={[
-                    ["#004777", 0.33],
-                    ["#F7B801", 0.33],
-                    ["#A30000", 0.33],
-                  ]}
-                  onComplete={() => console.log("Hours up")}
-                >
-                  {() => <div className="text-4xl font-semibold">{timeLeft.hours}</div>}
-                </CountdownCircleTimer>
-                <span className="text-sm">Hours</span>
-              </div>
+                <div className="flex flex-col items-center">
+                  <CountdownCircleTimer
+                    isPlaying
+                    duration={timeLeft.hours * 3600}
+                    size={130}
+                    colors={[
+                      ["#004777", 0.33],
+                      ["#F7B801", 0.33],
+                      ["#A30000", 0.33],
+                    ]}
+                    onComplete={() => console.log("Hours up")}
+                  >
+                    {() => (
+                      <div className="text-4xl font-semibold">
+                        {timeLeft.hours}
+                      </div>
+                    )}
+                  </CountdownCircleTimer>
+                  <span className="text-sm">Hours</span>
+                </div>
 
-              <div className="flex flex-col items-center">
-                <CountdownCircleTimer
-                  isPlaying
-                  duration={timeLeft.minutes * 60}
-                  size={130}
-                  colors={[
-                    ["#004777", 0.33],
-                    ["#F7B801", 0.33],
-                    ["#A30000", 0.33],
-                  ]}
-                  onComplete={() => console.log("Minutes up")}
-                >
-                  {() => <div className="text-4xl font-semibold">{timeLeft.minutes}</div>}
-                </CountdownCircleTimer>
-                <span className="text-sm">Minutes</span>
-              </div>
+                <div className="flex flex-col items-center">
+                  <CountdownCircleTimer
+                    isPlaying
+                    duration={timeLeft.minutes * 60}
+                    size={130}
+                    colors={[
+                      ["#004777", 0.33],
+                      ["#F7B801", 0.33],
+                      ["#A30000", 0.33],
+                    ]}
+                    onComplete={() => console.log("Minutes up")}
+                  >
+                    {() => (
+                      <div className="text-4xl font-semibold">
+                        {timeLeft.minutes}
+                      </div>
+                    )}
+                  </CountdownCircleTimer>
+                  <span className="text-sm">Minutes</span>
+                </div>
 
-              <div className="flex flex-col items-center">
-                <CountdownCircleTimer
-                  isPlaying
-                  duration={timeLeft.seconds}
-                  size={130}
-                  colors={[
-                    ["#004777", 0.33],
-                    ["#F7B801", 0.33],
-                    ["#A30000", 0.33],
-                  ]}
-                  onComplete={() => console.log("Seconds up")}
+                <div className="flex flex-col items-center">
+                  <CountdownCircleTimer
+                    isPlaying
+                    duration={timeLeft.seconds}
+                    size={130}
+                    colors={[
+                      ["#004777", 0.33],
+                      ["#F7B801", 0.33],
+                      ["#A30000", 0.33],
+                    ]}
+                    onComplete={() => console.log("Seconds up")}
+                  >
+                    {() => (
+                      <div className="text-4xl font-semibold">
+                        {timeLeft.seconds}
+                      </div>
+                    )}
+                  </CountdownCircleTimer>
+                  <span className="text-sm">Seconds</span>
+                </div>
+              </div>
+              <div className="flex flex-row-reverse">
+                <button
+                  onClick={handleRegisterFrom}
+                  className="bg-primary-color text-white px-10 py-2.5 rounded-xl"
                 >
-                  {() => <div className="text-4xl font-semibold">{timeLeft.seconds}</div>}
-                </CountdownCircleTimer>
-                <span className="text-sm">Seconds</span>
+                  Register
+                </button>
               </div>
             </div>
           </div>

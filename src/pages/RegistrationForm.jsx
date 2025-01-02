@@ -5,14 +5,14 @@ import DatePicker from "react-datepicker";
 const RegistrationForm = (props) => {
      const [startDate, setStartDate] = useState(new Date());
   return (
-    <div>
-      <section className="p-6 text-gray-600">
+    <div className="w-11/12 mx-auto mt-24">
+      <section className=" text-gray-600">
         <form
           noValidate=""
           action=""
           className="container flex flex-col mx-auto space-y-12"
         >
-          <fieldset className="grid grid-cols-5 gap-4 px-8 rounded-md">
+          <fieldset className="grid grid-cols-5 gap-8 rounded-md">
             <div className="flex justify-center items-center col-span-2">
               <p className="font-semibold text-primary-color text-4xl leading-relaxed">
                 Revolutionize Your Marathon Planning with Ease and Efficiency!

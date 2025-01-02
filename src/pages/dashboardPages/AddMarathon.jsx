@@ -2,34 +2,92 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const AddMarathon = (props) => {
-  const [startDate, setStartDate] = useState(new Date());
+  const { user } = useAuth();
+  console.log(user);
+  const [marathonDate, setMarathonDate] = useState(new Date());
+  const [startRegistrationDate, setStartRegistrationDate] = useState(
+    new Date()
+  );
+  const [endRegistrationDate, setEndRegistrationDate] = useState(new Date());
+  const axiosSecure = useAxiosSecure()
+  const navigate = useNavigate();
+  // const [addMarathonDate, setAddMarathonDate] = useState(new Date());
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    const marathon_title = form.title.value;
+    const location = form.location.value;
+    const marathon_image = form.image.value;
+    const description = form.description.value;
+    const running_distance = form.distance.value;
+    const marathon_start_date = marathonDate;
+    const start_registration_date = startRegistrationDate;
+    const end_registration_date = endRegistrationDate;
+    const addMarathonDate = new Date();
+
+    const formData = {
+      marathon_title,
+      organizer: {
+        email: user?.email,
+        name: user?.displayName,
+        photo: user?.photoURL,
+      },
+      location,
+      marathon_image,
+      description,
+      running_distance,
+      marathon_start_date,
+      start_registration_date,
+      end_registration_date,
+      addMarathonDate,
+      registration_count: 0,
+    };
+
+    try{
+      await axiosSecure.post(`/add-marathon`, formData)
+      form.reset()
+      toast.success("You organized marathon competition's data has been added")
+      navigate('/my-marathon-list')
+    }catch (err) {
+      toast.error(err.message)
+    }
+  };
+
   return (
     <div>
       <section className="p-6 text-gray-600">
         <form
+          onSubmit={handleSubmit}
           noValidate=""
           action=""
           className="container flex flex-col mx-auto space-y-12"
         >
           <fieldset className="grid grid-cols-5 gap-4 px-8 rounded-md">
             <div className="flex justify-center items-center col-span-2">
-              <p className="font-semibold text-primary-color text-4xl leading-relaxed">Revolutionize Your Marathon Planning with Ease and Efficiency!</p>
-              
+              <p className="font-semibold text-primary-color text-4xl leading-relaxed">
+                Revolutionize Your Marathon Planning with Ease and Efficiency!
+              </p>
             </div>
             <div className="col-span-3 space-y-7">
               {/* row one */}
               <div className="grid grid-cols-2 gap-5">
                 <div className="">
                   <label className="font-semibold text-primary-color">
-                    Marathon Title
+                    Title
                   </label>
                   <input
-                    id="firstname"
                     type="text"
                     name="title"
                     placeholder="Title"
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                    className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                   />
                 </div>
                 <div className="">
@@ -37,11 +95,10 @@ const AddMarathon = (props) => {
                     Location
                   </label>
                   <input
-                    id="lastname"
                     type="text"
                     name="location"
                     placeholder="Location"
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                    className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                   />
                 </div>
               </div>
@@ -49,14 +106,13 @@ const AddMarathon = (props) => {
               {/* row two */}
               <div className="col-span-full sm:col-span-3">
                 <label className="font-semibold text-primary-color">
-                  Marathon Image
+                  Image
                 </label>
                 <input
-                  id="email"
                   type="text"
                   name="image"
                   placeholder="Image URL"
-                  className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                  className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
                 />
               </div>
 
@@ -66,9 +122,8 @@ const AddMarathon = (props) => {
                   Description
                 </label>
                 <textarea
-                  className="block w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                  className="block w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
                   name="description"
-                  id="description"
                 ></textarea>
               </div>
 
@@ -80,9 +135,8 @@ const AddMarathon = (props) => {
                   </label>
                   <select
                     name="distance"
-                    id="category"
                     defaultValue="choose one"
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                    className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
                   >
                     <option value="Choose one">Choose one</option>
                     <option value="3 kilometer">3 kilometer</option>
@@ -94,12 +148,11 @@ const AddMarathon = (props) => {
                   <label className="text-primary-color">
                     Marathon Start Date
                   </label>
-
                   {/* Date Picker Input Field */}
                   <DatePicker
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    className="w-full rounded-md focus:ring px-2 py-1 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                    selected={marathonDate}
+                    onChange={(date) => setMarathonDate(date)}
                   />
                 </div>
               </div>
@@ -113,9 +166,9 @@ const AddMarathon = (props) => {
 
                   {/* Date Picker Input Field */}
                   <DatePicker
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    className="w-full rounded-md focus:ring px-2 py-1 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                    selected={startRegistrationDate}
+                    onChange={(date) => setStartRegistrationDate(date)}
                   />
                 </div>
                 <div className="flex flex-col gap-1">
@@ -125,9 +178,9 @@ const AddMarathon = (props) => {
 
                   {/* Date Picker Input Field */}
                   <DatePicker
-                    className="w-full rounded-md focus:ring px-2 py-0.5 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    className="w-full rounded-md focus:ring px-2 py-1 text-sm text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                    selected={endRegistrationDate}
+                    onChange={(date) => setEndRegistrationDate(date)}
                   />
                 </div>
               </div>

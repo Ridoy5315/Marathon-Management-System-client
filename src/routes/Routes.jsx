@@ -8,6 +8,7 @@ import AddMarathon from '../pages/dashboardPages/addMarathon'
 import Marathons from '../pages/Marathons'
 import MarathonDetails from '../pages/MarathonDetails'
 import RegistrationForm from '../pages/RegistrationForm'
+import MyMarathonList from '../pages/dashboardPages/MyMarathonList'
 
 const router = createBrowserRouter([
      {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
                {
                     path: '/add-marathon',
                     element: <AddMarathon></AddMarathon>
+               },
+               {
+                    path: '/my-marathon-list',
+                    element: <MyMarathonList></MyMarathonList>
                },
                {
                     path: '/login',
