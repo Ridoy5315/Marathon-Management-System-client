@@ -36,7 +36,7 @@ const RegistrationForm = (props) => {
     const userFirstName = form.firstName.value;
     const userLastName = form.lastName.value;
     const userEmail = form.email.value;
-    const userContactNumber = form.firstName.value;
+    const userContactNumber = form.number.value;
     const userAddress = form.address.value;
 
     const registrationData = {
@@ -62,7 +62,7 @@ const RegistrationForm = (props) => {
       form.reset()
       // 3. Show toast and navigate
       toast.success('You have successfully completed the registration')
-      navigate('/my-marathon-list')
+      navigate(`/my-apply-list/${user?.email}`)
     } catch (err) {
       toast.error("You have already apply on this Competition!")
       console.log(err)

@@ -9,6 +9,7 @@ import Marathons from '../pages/Marathons'
 import MarathonDetails from '../pages/MarathonDetails'
 import RegistrationForm from '../pages/RegistrationForm'
 import MyMarathonList from '../pages/dashboardPages/MyMarathonList'
+import MyApplyList from '../pages/dashboardPages/MyApplyList'
 
 const router = createBrowserRouter([
      {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
                {
                     path: '/my-marathon-list',
                     element: <MyMarathonList></MyMarathonList>
+               },
+               {
+                    path: '/my-apply-list/:email',
+                    element: <MyApplyList></MyApplyList>
                },
                {
                     path: '/login',
