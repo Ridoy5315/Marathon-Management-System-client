@@ -8,6 +8,7 @@ import { FaDeleteLeft } from "react-icons/fa6";
 import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
 import UpdateRegistration from "../../Components/UpdateRegistration";
+import toast from "react-hot-toast";
 
 const MyApplyList = (props) => {
   const axiosSecure = useAxiosSecure();
@@ -15,14 +16,57 @@ const MyApplyList = (props) => {
   const [myData, setMyData] = useState([]);
 
   useEffect(() => {
-    const fetchAllApplicationData = async () => {
-      const { data } = await axiosSecure.get(
-        `/registered-marathon/${user?.email}`
-      );
-      setMyData(data);
-    };
+    
     fetchAllApplicationData();
-  }, [axiosSecure, user?.email]);
+  }, []);
+
+  const fetchAllApplicationData = async () => {
+    const { data } = await axiosSecure.get(
+      `/registered-marathon/${user?.email}`
+    );
+    setMyData(data);
+  };
+
+   // delete functionality
+   const handleDelete = async id => {
+    try {
+      await axiosSecure.delete(`/apply-list/${id}`)
+      toast.success('Data Deleted Successfully!!!')
+      fetchAllApplicationData()
+    } catch (err) {
+      console.log(err)
+      toast.error(err.message)
+    }
+  }
+
+  const confirmationDelete = id => {
+    toast(t => (
+      <div className='flex gap-3 items-center'>
+        <div>
+          <p>
+            Are you <b>sure?</b>
+          </p>
+        </div>
+        <div className='gap-2 flex'>
+          <button
+            className='bg-red-400 text-white px-3 py-1 rounded-md'
+            onClick={() => {
+              toast.dismiss(t.id)
+              handleDelete(id)
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className='bg-green-400 text-white px-3 py-1 rounded-md'
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ))
+  }
 
   return (
     <div>
@@ -80,7 +124,7 @@ const MyApplyList = (props) => {
                     <UpdateRegistration id={data._id}></UpdateRegistration>
                   </td>
                   <td className="pl-4 text-right tooltip" data-tip="Delete">
-                    <Link className="">
+                    <Link onClick={() => confirmationDelete(data._id)}>
                       <FaDeleteLeft className=" text-secondary-color text-3xl"></FaDeleteLeft>
                     </Link>
                   </td>
