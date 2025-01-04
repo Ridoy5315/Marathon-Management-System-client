@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import AddMarathon from "./dashboardPages/addMarathon";
 import MyMarathonList from "./dashboardPages/MyMarathonList";
 import MyApplyList from "./dashboardPages/MyApplyList";
+import useAuth from "../hooks/useAuth";
 
 const Dashboard = (props) => {
+  const {user} = useAuth();
   const [activeLink, setActiveLink] = useState("Add Marathon");
   console.log(activeLink);
   return (
@@ -33,7 +35,7 @@ const Dashboard = (props) => {
             My Marathon List
           </Link>
           <Link
-            to="/dashboard"
+            to={`/dashboard/my-apply-list/${user?.email}`}
             onClick={() => setActiveLink("My Apply List")}
             className={`py-1 px-3 rounded-md ${
               activeLink === "My Apply List"
