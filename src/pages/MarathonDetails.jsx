@@ -9,8 +9,10 @@ import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import { compareAsc, format } from "date-fns";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MarathonDetails = (props) => {
+  const axiosSecure = useAxiosSecure();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -35,12 +37,13 @@ const MarathonDetails = (props) => {
     start_registration_date,
     end_registration_date,
     marathon_start_date,
+    registration_count,
   } = details || {};
 
   useEffect(() => {
     const marathonDetails = async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/marathon/${id}`
+      const { data } = await axiosSecure.get(
+        `/marathon/${id}`
       );
       const targetData = new Date(data.marathon_start_date);
       setDetails(data);
@@ -92,7 +95,7 @@ const MarathonDetails = (props) => {
         </Link>
         <div className="bg-primary-color text-white px-6 py-1 rounded-xl flex items-center gap-3">
           <p>Total Registration:</p>
-          <span>0</span>
+          <span>{registration_count}</span>
         </div>
       </div>
       <div className="space-y-16">

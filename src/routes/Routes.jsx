@@ -10,7 +10,7 @@ import MarathonDetails from "../pages/MarathonDetails";
 import RegistrationForm from "../pages/RegistrationForm";
 import MyMarathonList from "../pages/dashboardPages/MyMarathonList";
 import MyApplyList from "../pages/dashboardPages/MyApplyList";
-import UpdateRegistration from "../Components/UpdateRegistration";
+
 
 const router = createBrowserRouter([
   {

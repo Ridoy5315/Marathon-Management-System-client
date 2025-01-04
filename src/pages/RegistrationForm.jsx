@@ -54,15 +54,17 @@ const RegistrationForm = (props) => {
 
     try {
       // 1. make a post request
-      await axiosSecure.post(
+      const {data} = await axiosSecure.post(
         `/add-registered-marathon`,
         registrationData
       )
+      console.log(data)
+      // console.log(response.status);
       // 2. Reset form
       form.reset()
       // 3. Show toast and navigate
       toast.success('You have successfully completed the registration')
-      navigate(`/my-apply-list/${user?.email}`)
+      // navigate(`/dashboard/my-apply-list/${user?.email}`)
     } catch (err) {
       toast.error("You have already apply on this Competition!")
       console.log(err)

@@ -55,7 +55,7 @@ const AddMarathon = (props) => {
       await axiosSecure.post(`/add-marathon`, formData)
       form.reset()
       toast.success("You organized marathon competition's data has been added")
-      navigate('/my-marathon-list')
+      navigate('/dashboard/my-marathon-list')
     }catch (err) {
       toast.error(err.message)
     }

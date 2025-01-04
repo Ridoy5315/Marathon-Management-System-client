@@ -25,7 +25,7 @@ const Navbar = (props) => {
   };
   const links = (
     <nav className="flex gap-2">
-      <Link
+      <Link to='/home'
         onClick={() => setActiveLink("home")}
         className={`py-1 px-3 rounded-md ${
           activeLink === "home"
