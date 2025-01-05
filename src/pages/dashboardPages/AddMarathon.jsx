@@ -6,20 +6,23 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { compareAsc } from "date-fns";
 const AddMarathon = (props) => {
+  const axiosSecure = useAxiosSecure()
+  const navigate = useNavigate();
   const { user } = useAuth();
-  console.log(user);
   const [marathonDate, setMarathonDate] = useState(new Date());
   const [startRegistrationDate, setStartRegistrationDate] = useState(
     new Date()
   );
   const [endRegistrationDate, setEndRegistrationDate] = useState(new Date());
-  const axiosSecure = useAxiosSecure()
-  const navigate = useNavigate();
-  // const [addMarathonDate, setAddMarathonDate] = useState(new Date());
+ 
+  const [runningDistanceError, setRunningDistanceError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setRunningDistanceError(null);
 
     const form = e.target;
 
@@ -28,10 +31,24 @@ const AddMarathon = (props) => {
     const marathon_image = form.image.value;
     const description = form.description.value;
     const running_distance = form.distance.value;
+    if(running_distance === 'Choose one'){
+      setRunningDistanceError(
+        "Please choose a option of running distance"
+      );
+      return;
+    }
     const marathon_start_date = marathonDate;
     const start_registration_date = startRegistrationDate;
     const end_registration_date = endRegistrationDate;
     const addMarathonDate = new Date();
+
+    if(compareAsc(new Date(start_registration_date), new Date(end_registration_date)) === 1){
+      return toast.error("The Marathon registration deadline date cann't be earlier than the Marathon registration start date")
+    }
+
+    if(compareAsc(new Date(end_registration_date), new Date(marathon_start_date)) === 1 || compareAsc(new Date(start_registration_date), new Date(marathon_start_date)) === 1 || compareAsc(new Date(addMarathonDate), new Date(marathon_start_date)) === 1){
+      return toast.error("The Marathon start date cann't be earlier than the registration deadline date")
+    }
 
     const formData = {
       marathon_title,
@@ -54,7 +71,7 @@ const AddMarathon = (props) => {
     try{
       await axiosSecure.post(`/add-marathon`, formData)
       form.reset()
-      toast.success("You organized marathon competition's data has been added")
+      toast.success("You organized marathon competition has been added")
       navigate('/dashboard/my-marathon-list')
     }catch (err) {
       toast.error(err.message)
@@ -144,6 +161,7 @@ const AddMarathon = (props) => {
                     <option value="25 kilometer">25 kilometer</option>
                   </select>
                 </div>
+                
                 <div className="flex flex-col gap-1">
                   <label className="text-primary-color">
                     Marathon Start Date
@@ -155,6 +173,7 @@ const AddMarathon = (props) => {
                     onChange={(date) => setMarathonDate(date)}
                   />
                 </div>
+                {runningDistanceError && <p className="text-sm text-red-500">{runningDistanceError}</p>}
               </div>
 
               {/* row five */}

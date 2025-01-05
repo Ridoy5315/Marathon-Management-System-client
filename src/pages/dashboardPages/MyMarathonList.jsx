@@ -14,11 +14,15 @@ const MyMarathonList = (props) => {
   const { user } = useAuth();
   const [myData, setMyData] = useState([]);
   const [modalData, setModalData] = useState({});
-  
+  // const marathon_start_date = modalData?.marathon_start_date;
+  // console.log(marathon_start_date);
   const [startDate, setStartDate] = useState(new Date());
-  const [startRegistrationDate, setStartRegistrationDate] = useState(new Date());
+  // console.log(startDate);
+  // console.log(modalData?.marathon_start_date)
+  const [startRegistrationDate, setStartRegistrationDate] = useState(
+    new Date()
+  );
   const [endRegistrationDate, setEndRegistrationDate] = useState(new Date());
-
 
   useEffect(() => {
     fetchAllMarathonList();
@@ -70,6 +74,13 @@ const MyMarathonList = (props) => {
     ));
   };
 
+  const handleData = (data) => {
+    setModalData(data)
+    setStartDate(data?.marathon_start_date)
+    setStartRegistrationDate(data?.start_registration_date)
+    setEndRegistrationDate(data?.end_registration_date)
+  }
+
   // update data
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -81,9 +92,9 @@ const MyMarathonList = (props) => {
     const marathon_image = form.image.value;
     const description = form.description.value;
     const running_distance = form.distance.value;
-    const marathon_start_date = modalData.marathon_start_date;
-    const start_registration_date = modalData.start_registration_date;
-    const end_registration_date = modalData.end_registration_date;
+    const marathon_start_date = startDate;
+    const start_registration_date = startRegistrationDate;
+    const end_registration_date = endRegistrationDate;
 
     const updateData = {
       marathon_title,
@@ -99,7 +110,7 @@ const MyMarathonList = (props) => {
     //    update data
     try {
       await axiosSecure.put(`/update-marathon/${modalData._id}`, updateData);
-      document.getElementById('my_modal_1').close();
+      document.getElementById("my_modal_1").close();
       await fetchAllMarathonList();
       toast.success("Data Updated Successfully!!!");
       // navigate(`/dashboard/my-apply-list/:email${user?.email}`)
@@ -107,6 +118,10 @@ const MyMarathonList = (props) => {
       toast.error(err.message);
     }
   };
+
+  
+    
+  
   return (
     <div>
       <div className="container p-2 mx-auto sm:p-4 text-gray-800">
@@ -159,9 +174,14 @@ const MyMarathonList = (props) => {
                     </p>
                   </td>
                   <td className="pl-6 text-left tooltip" data-tip="Update">
-                  <button onClick={() => {setModalData(data); document.getElementById('my_modal_1').showModal()}}>
-                <GrUpdate className="bg-primary-color py-1.5 px-1.5 rounded-full text-white text-[28px]"></GrUpdate>
-              </button>
+                    <button
+                      onClick={() => {
+                        handleData(data);
+                        document.getElementById("my_modal_1").showModal();
+                      }}
+                    >
+                      <GrUpdate className="bg-primary-color py-1.5 px-1.5 rounded-full text-white text-[28px]"></GrUpdate>
+                    </button>
                     {/* <UpdateMarathon id={data._id} fetchAllMarathonList={fetchAllMarathonList}></UpdateMarathon> */}
                   </td>
                   <td className="pl-4 text-right tooltip" data-tip="Delete">
@@ -177,162 +197,168 @@ const MyMarathonList = (props) => {
 
         {/* modal */}
         <div>
-              
-              <dialog id="my_modal_1" className="modal">
-                <div className="modal-box">
-                  <section className=" text-gray-600">
-                    <form
-                      onSubmit={handleUpdate}
-                      noValidate=""
-                      action=""
-                      className="container flex flex-col mx-auto"
-                    >
-                      <fieldset className="grid grid-cols-5 gap-8 rounded-md">
-                        <div className="col-span-full space-y-6">
-                          {/* row one */}
-                          <div className="grid grid-cols-2 gap-5">
-                            <div className="">
-                              <label className="font-semibold text-primary-color">
-                                Title
-                              </label>
-                              <input
-                                type="text"
-                                name="title"
-                                placeholder="Title"
-                                defaultValue={modalData?.marathon_title}
-                                className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
-                              />
-                            </div>
-                            <div className="">
-                              <label className="font-semibold text-primary-color">
-                                Location
-                              </label>
-                              <input
-                                type="text"
-                                name="location"
-                                placeholder="Location"
-                                defaultValue={modalData?.location}
-                                className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
-                              />
-                            </div>
+          <dialog id="my_modal_1" className="modal">
+            <div className="modal-box">
+              <section className=" text-gray-600">
+                <form
+                  onSubmit={handleUpdate}
+                  noValidate=""
+                  action=""
+                  className="container flex flex-col mx-auto"
+                >
+                  <fieldset className="grid grid-cols-5 gap-8 rounded-md">
+                    <div className="col-span-full space-y-6">
+                      {/* row one */}
+                      <div className="grid grid-cols-2 gap-5">
+                        <div className="">
+                          <label className="font-semibold text-primary-color">
+                            Title
+                          </label>
+                          <input
+                            type="text"
+                            name="title"
+                            placeholder="Title"
+                            defaultValue={modalData?.marathon_title}
+                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                          />
+                        </div>
+                        <div className="">
+                          <label className="font-semibold text-primary-color">
+                            Location
+                          </label>
+                          <input
+                            type="text"
+                            name="location"
+                            placeholder="Location"
+                            defaultValue={modalData?.location}
+                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                          />
+                        </div>
+                      </div>
+                      {/* second row */}
+                      <div className="">
+                        <div>
+                          <label className="font-semibold text-primary-color">
+                            Photo
+                          </label>
+                          <input
+                            type="text"
+                            name="image"
+                            placeholder="Photo URL"
+                            defaultValue={modalData?.marathon_image}
+                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                          />
+                        </div>
+                      </div>
+                      {/* third row */}
+                      <div>
+                        <div className="">
+                          <label className="font-semibold text-primary-color">
+                            Description
+                          </label>
+                          <input
+                            type="text"
+                            name="description"
+                            placeholder="Description"
+                            defaultValue={modalData?.description}
+                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                          />
+                        </div>
+                      </div>
+
+                      {/* forth row */}
+                      <div className="grid grid-cols-2 gap-6">
+                        <div className="flex flex-col gap-1">
+                          <label
+                            className="text-primary-color"
+                            htmlFor="category"
+                          >
+                            Running distance
+                          </label>
+                          <select
+                            name="distance"
+                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                          >
+                            <option value="Choose one">
+                              {modalData?.running_distance}
+                            </option>
+                            <option value="3 kilometer">3 kilometer</option>
+                            <option value="10 kilometer">10 kilometer</option>
+                            <option value="25 kilometer">25 kilometer</option>
+                          </select>
+                        </div>
+                        {modalData?.marathon_start_date && (
+                          <div className="flex flex-col gap-1">
+                            <label className="font-semibold text-primary-color">
+                              Marathon Start Date
+                            </label>
+
+                            {/* Date Picker Input Field */}
+                            <DatePicker
+                              className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                              selected={startDate}
+                              onChange={(date) => setStartDate(date)}
+                            />
                           </div>
-                          {/* second row */}
-                          <div className="">
-                            <div>
-                              <label className="font-semibold text-primary-color">
-                                Photo
-                              </label>
-                              <input
-                                type="text"
-                                name="image"
-                                placeholder="Photo URL"
-                                defaultValue={modalData?.marathon_image}
-                                className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
-                              />
-                            </div>
+                        )}
+                      </div>
+
+                      {/* row five */}
+                      <div className="grid grid-cols-2 gap-5">
+                        <div className="flex flex-col gap-1">
+                          <label className="font-semibold text-primary-color">
+                            Start Registration date
+                          </label>
+
+                          {/* Date Picker Input Field */}
+                          <DatePicker
+                            className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                            selected={startRegistrationDate}
+                            onChange={(date) => setStartRegistrationDate(date)}
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                          <label className="font-semibold text-primary-color">
+                            Registration Deadline
+                          </label>
+
+                          {/* Date Picker Input Field */}
+                          <DatePicker
+                            className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                            selected={endRegistrationDate}
+                            onChange={(date) => setEndRegistrationDate(date)}
+                          />
+                        </div>
+                      </div>
+
+                      {/* action button */}
+                      <div className="flex flex-row-reverse">
+                        <div className="flex gap-4">
+                          <div className=" modal-action">
+                            <form
+                              method="dialog"
+                              className="flex flex-row-reverse"
+                            >
+                              <button className="transition-colors duration-300 transhtmlForm border border-secondary-color px-4 hover:border-[#f4d6d6] hover:bg-[#f4d6d6] text-secondary-color py-1 rounded-md font-semibold">
+                                Cancel
+                              </button>
+                            </form>
                           </div>
-                          {/* third row */}
-                          <div>
-                            <div className="">
-                              <label className="font-semibold text-primary-color">
-                                Description
-                              </label>
-                              <input
-                                type="text"
-                                name="description"
-                                placeholder="Description"
-                                defaultValue={modalData?.description}
-                                className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
-                              />
-                            </div>
-                          </div>
-        
-                          {/* forth row */}
-                          <div className="grid grid-cols-2 gap-6">
-                            <div className="flex flex-col gap-1">
-                              <label className="text-primary-color" htmlFor="category">
-                                Running distance
-                              </label>
-                              <select
-                                name="distance"
-                                
-                                className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                              >
-                                <option value="Choose one">{modalData?.running_distance}</option>
-                                <option value="3 kilometer">3 kilometer</option>
-                                <option value="10 kilometer">10 kilometer</option>
-                                <option value="25 kilometer">25 kilometer</option>
-                              </select>
-                            </div>
-                            <div className="flex flex-col gap-1">
-                              <label className="font-semibold text-primary-color">
-                                Marathon Start Date
-                              </label>
-        
-                              {/* Date Picker Input Field */}
-                              <DatePicker
-                                      className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                                      selected={startDate}
-                                      onChange={(date) => setStartDate(date)}
-                                    />
-                              
-                            </div>
-                          </div>
-        
-                          {/* row five */}
-                          <div className="grid grid-cols-2 gap-5">
-                            <div className="flex flex-col gap-1">
-                                <label className="font-semibold text-primary-color">
-                                  Start Registration date
-                                </label>
-          
-                                {/* Date Picker Input Field */}
-                                <DatePicker
-                                  className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                                  selected={startRegistrationDate}
-                                  onChange={(date) => setStartRegistrationDate(date)}
-                                />
-                              </div>
-                            
-                            
-                            <div className="flex flex-col gap-1">
-                              <label className="font-semibold text-primary-color">
-                                Registration Deadline
-                              </label>
-        
-                              {/* Date Picker Input Field */}
-                              <DatePicker
-                                className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
-                                selected={endRegistrationDate}
-                                onChange={(date) => setEndRegistrationDate(date)}
-                              />
-                            </div>
-                          </div>
-        
-                          {/* action button */}
-                          <div className="flex flex-row-reverse">
-                            <div className="flex gap-4">
-                              <div className=" modal-action">
-                                <form method="dialog" className="flex flex-row-reverse">
-                                  <button className="transition-colors duration-300 transhtmlForm border border-secondary-color px-4 hover:border-[#f4d6d6] hover:bg-[#f4d6d6] text-secondary-color py-1 rounded-md font-semibold">
-                                    Cancel
-                                  </button>
-                                </form>
-                              </div>
-                              <div className=" modal-action">
-                                <button className="transition-colors duration-300 transhtmlForm border border-primary-color px-4 hover:border-[#c2c9d8] hover:bg-[#c2c9d8] text-primary-color py-1 rounded-md font-semibold">
-                                  Update
-                                </button>
-                              </div>
-                            </div>
+                          <div className=" modal-action">
+                            <button className="transition-colors duration-300 transhtmlForm border border-primary-color px-4 hover:border-[#c2c9d8] hover:bg-[#c2c9d8] text-primary-color py-1 rounded-md font-semibold">
+                              Update
+                            </button>
                           </div>
                         </div>
-                      </fieldset>
-                    </form>
-                  </section>
-                </div>
-              </dialog>
+                      </div>
+                    </div>
+                  </fieldset>
+                </form>
+              </section>
             </div>
+          </dialog>
+        </div>
       </div>
     </div>
   );

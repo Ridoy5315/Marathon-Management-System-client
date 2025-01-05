@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { format } from "date-fns";
 
 const MarathonCard = ({ marathon }) => {
+  const backLocation = useLocation();
   const {
     marathon_image,
     marathon_title,
@@ -48,7 +49,7 @@ const MarathonCard = ({ marathon }) => {
         <div className="divider"></div>
         <div className="flex justify-end ">
           <Link
-            to={`/marathon-details/${_id}`}
+            to={`/marathon-details/${_id}`} state={backLocation.pathname}
             className="bg-primary-color text-white py-1 px-6 rounded-xl"
           >
             See Details

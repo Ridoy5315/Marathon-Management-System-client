@@ -1,19 +1,18 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { FaGoogle, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import toast from "react-hot-toast";
-import { AuthContext } from "../../providers/AuthProvider";
 import registerLottieData from "../../assets/lottie/Register.json";
 import Lottie from "lottie-react";
 import useAuth from "../../hooks/useAuth";
-import { QueryClient, useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { toast, ToastContainer } from "react-toastify";
 
 const Register = (props) => {
-  //   const navigate = useNavigate();
-  //   const location = useLocation();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [passError, setPassError] = useState(null);
   const [nameError, setNameError] = useState(null);
@@ -25,19 +24,6 @@ const Register = (props) => {
     signInWithGoogle,
     updateUserProfile,
   } = useAuth();
-
-  const { isPending, mutateAsync } = useMutation({
-    mutationFn: async (usersData) => {
-      await axios.post(`${import.meta.env.VITE_API_URL}/users`, usersData);
-    },
-    onSuccess: () => {
-      console.log("data saved");
-      QueryClient.invalidateQueries({ queryKey: ["marathons"] });
-    },
-    onError: (err) => {
-      console.log(err);
-    },
-  });
 
   const handleRegistration = async (e) => {
     e.preventDefault();
@@ -70,26 +56,31 @@ const Register = (props) => {
         })
           .then(() => {
             setUser({ ...user, displayName: name, photoURL: photo });
-            //   navigate(location?.state ? location.state : "/");
           })
           .catch(() => {});
         const newUser = { name, email, photo };
         try {
-          axios.post(`${import.meta.env.VITE_API_URL}/users`, newUser);
-          form.reset();
-          toast.success("Registration complete!");
+          axiosSecure.post(`/users`, newUser);
+          navigate("/");
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Registration Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         } catch (error) {
           console.log(error);
         }
       })
       .catch(() => {
-        toast.warn(
+        toast.error(
           "This email is already registered. Please log in to continue.",
           {
             position: "top-center",
-            autoClose: 4000,
+            autoClose: 3000,
             hideProgressBar: false,
-            closeOnClick: true,
+            closeOnClick: false,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
@@ -106,12 +97,30 @@ const Register = (props) => {
       const photo = result.user.photoURL;
       const newUser = { name, email, photo };
       try {
-        axios.post(`${import.meta.env.VITE_API_URL}/users`, newUser);
-        toast.success("Registration complete!");
+        axiosSecure.post(`/users`, newUser);
+        navigate("/");
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Registration Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } catch (error) {
-        console.log(error);
+        toast.error(
+          "This email is already registered. Please log in to continue.",
+          {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        );
       }
-      //  navigate(location?.state ? location.state : "/");
     });
   };
   return (
@@ -173,7 +182,7 @@ const Register = (props) => {
                   className="input rounded-3xl bg-[#28a74634]"
                   required
                 />
-                <button
+                <span
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-[52px]"
                 >
@@ -182,7 +191,7 @@ const Register = (props) => {
                   ) : (
                     <FaRegEye></FaRegEye>
                   )}
-                </button>
+                </span>
               </div>
               {passError && <p className="text-sm text-red-500">{passError}</p>}
               <div className="flex justify-center flex-row-reverse mt-3 mb-5 text-white ">
@@ -192,26 +201,29 @@ const Register = (props) => {
               </div>
             </form>
           </div>
-          <div>
-            <p className="font-light text-center">
-              Already have a account? Login{" "}
-              <Link className="text-secondary-color font-semibold text-xl">
-                here
-              </Link>
-            </p>
-          </div>
-          {/* divider */}
-          <div className="divider">OR</div>
+
           {/* login with social */}
           <div className="text-center space-y-3">
-            <h6 className="font-light text-sm">
-              Register using social networks
-            </h6>
+            <div className="divider">Register with social accounts</div>
             <div className="flex gap-3 text-3xl justify-center">
               <button onClick={handleSignInWithGoogle}>
                 <FaGoogle></FaGoogle>
               </button>
             </div>
+          </div>
+          {/* divider */}
+          <div className="divider mt-8">OR</div>
+
+          <div>
+            <p className="font-light text-center">
+              Already have a account? Login{" "}
+              <Link
+                to="/login"
+                className="text-secondary-color font-semibold text-xl"
+              >
+                here
+              </Link>
+            </p>
           </div>
         </div>
       </div>
@@ -219,6 +231,7 @@ const Register = (props) => {
       <div className="text-center lg:text-left">
         <Lottie animationData={registerLottieData}></Lottie>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

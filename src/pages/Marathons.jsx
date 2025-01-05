@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 import MarathonCard from "../Components/MarathonCard";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const Marathons = (props) => {
   const [marathons, setMarathons] = useState([]);
+  const axiosSecure = useAxiosSecure()
   useEffect(() => {
     const fetchAllMarathons = async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/marathons`
+      const { data } = await axiosSecure.get(
+        `/marathons`
       );
       setMarathons(data);
-      console.log(data);
     };
     fetchAllMarathons();
   }, []);

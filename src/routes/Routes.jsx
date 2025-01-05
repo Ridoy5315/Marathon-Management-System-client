@@ -10,7 +10,7 @@ import MarathonDetails from "../pages/MarathonDetails";
 import RegistrationForm from "../pages/RegistrationForm";
 import MyMarathonList from "../pages/dashboardPages/MyMarathonList";
 import MyApplyList from "../pages/dashboardPages/MyApplyList";
-
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -23,19 +23,35 @@ const router = createBrowserRouter([
       },
       {
         path: "/marathons",
-        element: <Marathons></Marathons>,
+        element: (
+          <PrivateRoute>
+            <Marathons></Marathons>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/marathon-details/:id",
-        element: <MarathonDetails></MarathonDetails>,
+        element: (
+          <PrivateRoute>
+            <MarathonDetails></MarathonDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/registration-from/:id",
-        element: <RegistrationForm></RegistrationForm>,
+        element: (
+          <PrivateRoute>
+            <RegistrationForm></RegistrationForm>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard",
-        element: <Dashboard></Dashboard>,
+        element: (
+          <PrivateRoute>
+            <Dashboard></Dashboard>
+          </PrivateRoute>
+        ),
         children: [
           {
             path: "/dashboard/add-marathon",
@@ -46,12 +62,11 @@ const router = createBrowserRouter([
             element: <MyMarathonList></MyMarathonList>,
           },
           {
-            path: "/dashboard/my-apply-list/:email",
+            path: "/dashboard/my-apply-list",
             element: <MyApplyList></MyApplyList>,
           },
-        ]
+        ],
       },
-      
 
       {
         path: "/login",

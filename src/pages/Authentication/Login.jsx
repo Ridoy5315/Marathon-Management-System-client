@@ -8,8 +8,10 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SignIn = (props) => {
+  const axiosSecure = useAxiosSecure();
   const [showPassword, setShowPassword] = useState(false);
   const { signInUser, setUser, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -25,13 +27,8 @@ const SignIn = (props) => {
       .then((result) => {
         // const user = result.user;
         setUser(result.user);
-        axios
-        .post(`${import.meta.env.VITE_API_URL}/jwt`, email, {
-          withCredentials: true,
-        })
-        .then((res) => {
-          console.log(res.data);
-        });
+        axiosSecure.post(`/jwt`, email)
+        navigate(location?.state ? location.state : "/");
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -39,9 +36,6 @@ const SignIn = (props) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        e.target.reset();
-        // e.target.reset();
-        // navigate(location?.state ? location.state : "/");
       })
       .catch(() => {
         toast.error("Email or password is incorrect. Please try again.", {
@@ -65,7 +59,8 @@ const SignIn = (props) => {
       const photo = result.user.photoURL;
       const newUser = { name, email, photo };
       try {
-        axios.post(`${import.meta.env.VITE_API_URL}/users`, newUser);
+        axiosSecure.post(`/users`, newUser);
+        navigate(location?.state ? location.state : "/");
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -77,8 +72,6 @@ const SignIn = (props) => {
         console.log(error);
       }
       
-      
-      // navigate(location?.state ? location.state : "/");
     });
   };
   return (
@@ -113,9 +106,9 @@ const SignIn = (props) => {
                 placeholder="password"
                 name="password"
                 className="input rounded-3xl bg-[#28a74634]"
-                required
+                required 
               />
-              <button
+              <span
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-[52px]"
               >
@@ -124,7 +117,7 @@ const SignIn = (props) => {
                 ) : (
                   <FaRegEye></FaRegEye>
                 )}
-              </button>
+              </span>
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
@@ -146,7 +139,7 @@ const SignIn = (props) => {
             <div>
               <p className="font-light text-center">
                 Dont have account? Register{" "}
-                <Link className="text-secondary-color font-semibold text-xl">
+                <Link to='/registration' className="text-secondary-color font-semibold text-xl">
                   here
                 </Link>
               </p>

@@ -6,7 +6,6 @@ import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 const Navbar = (props) => {
   const { user, logOutUser } = useAuth();
-  const [activeLink, setActiveLink] = useState("home");
   const [activeButton, setActiveButton] = useState("Login");
 
   const handleLogOut = () => {
@@ -24,45 +23,99 @@ const Navbar = (props) => {
     });
   };
   const links = (
-    <nav className="flex gap-2">
-      <Link to='/home'
-        onClick={() => setActiveLink("home")}
-        className={`py-1 px-3 rounded-md ${
-          activeLink === "home"
-            ? "bg-primary-color text-white"
-            : "text-primary-color font-semibold hover:bg-gray-200 "
-        }`}
-      >
-        Home
-      </Link>
-      <Link
-        to="/marathons"
-        onClick={() => setActiveLink("Marathons")}
-        className={`py-1 px-3 rounded-md ${
-          activeLink === "Marathons"
-            ? "bg-primary-color text-white"
-            : "text-primary-color font-semibold hover:bg-gray-200"
-        }`}
-      >
-        Marathons
-      </Link>
-      {user ? (
-        <Link
-          to="/dashboard"
-          onClick={() => setActiveLink("Dashboard")}
-          className={`py-1 px-3 rounded-md ${
-            activeLink === "Dashboard"
-              ? "bg-primary-color text-white"
-              : "text-primary-color font-semibold hover:bg-gray-200"
-          }`}
-        >
-          Dashboard
-        </Link>
-      ) : (
-        ""
-      )}
+    <nav className="">
+      <ul className="flex gap-2">
+        <li>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `py-1 px-3 rounded-md ${
+                isActive
+                  ? "bg-primary-color text-white"
+                  : "text-primary-color font-semibold hover:bg-gray-200"
+              }`
+            }
+          >
+            Home
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/marathons"
+            className={({ isActive }) =>
+              `py-1 px-3 rounded-md ${
+                isActive
+                  ? "bg-primary-color text-white"
+                  : "text-primary-color font-semibold hover:bg-gray-200"
+              }`
+            }
+          >
+            Marathons
+          </NavLink>
+        </li>
+
+        {user ? (
+          <li>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                `py-1 px-3 rounded-md ${
+                  isActive
+                    ? "bg-primary-color text-white"
+                    : "text-primary-color font-semibold hover:bg-gray-200"
+                }`
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
+        ) : (
+          ""
+        )}
+      </ul>
     </nav>
   );
+  // const links = (
+  //   <nav className="flex gap-2">
+  //     <Link to='/home'
+  //       onClick={() => setActiveLink("home")}
+  //       className={`py-1 px-3 rounded-md ${
+  //         activeLink === "home"
+  //           ? "bg-primary-color text-white"
+  //           : "text-primary-color font-semibold hover:bg-gray-200 "
+  //       }`}
+  //     >
+  //       Home
+  //     </Link>
+  //     <Link
+  //       to="/marathons"
+  //       onClick={() => setActiveLink("Marathons")}
+  //       className={`py-1 px-3 rounded-md ${
+  //         activeLink === "Marathons"
+  //           ? "bg-primary-color text-white"
+  //           : "text-primary-color font-semibold hover:bg-gray-200"
+  //       }`}
+  //     >
+  //       Marathons
+  //     </Link>
+  //     {user ? (
+  //       <Link
+  //         to="/dashboard"
+  //         onClick={() => setActiveLink("Dashboard")}
+  //         className={`py-1 px-3 rounded-md ${
+  //           activeLink === "Dashboard"
+  //             ? "bg-primary-color text-white"
+  //             : "text-primary-color font-semibold hover:bg-gray-200"
+  //         }`}
+  //       >
+  //         Dashboard
+  //       </Link>
+  //     ) : (
+  //       ""
+  //     )}
+  //   </nav>
+  // );
   return (
     <div className="navbar my-4 bg-base-100 font-fontHeading">
       <div className="navbar-start justify-between lg:justify-start">
@@ -118,7 +171,7 @@ const Navbar = (props) => {
             <button
               onClick={handleLogOut}
               className="py-2 px-4 rounded bg-primary-color text-white hover:bg-secondary-color"
-              >
+            >
               Logout
             </button>
           </div>

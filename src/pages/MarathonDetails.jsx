@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { MdOutlineSocialDistance } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaCalendarAlt, FaFastBackward } from "react-icons/fa";
@@ -12,6 +12,8 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MarathonDetails = (props) => {
+  const navigate = useNavigate();
+  const backLocation = useLocation();
   const axiosSecure = useAxiosSecure();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -19,7 +21,6 @@ const MarathonDetails = (props) => {
     minutes: 0,
     seconds: 0,
   });
-  const navigate = useNavigate();
   const { user } = useAuth();
   const [details, setDetails] = useState({});
 
@@ -86,13 +87,19 @@ const MarathonDetails = (props) => {
     }
   };
 
+  const handleBack = () => {
+    // navigate(backLocation?.state ? backLocation.state : "/");
+    navigate(backLocation?.state ? backLocation?.state : '/')
+    console.log(backLocation.state)
+  }
+
   return (
     <div className="w-10/12 mx-auto mt-20">
       <div className="mb-10 flex justify-between">
-        <Link className="bg-secondary-color text-white px-6 py-1 rounded-xl flex items-center">
+        <button onClick={handleBack} className="bg-secondary-color text-white px-6 py-1 rounded-xl flex items-center">
           <FaFastBackward className="mr-2"></FaFastBackward>
           Back
-        </Link>
+        </button>
         <div className="bg-primary-color text-white px-6 py-1 rounded-xl flex items-center gap-3">
           <p>Total Registration:</p>
           <span>{registration_count}</span>
