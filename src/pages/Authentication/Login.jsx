@@ -3,11 +3,10 @@ import PropTypes from "prop-types";
 import signInLottieData from "../../assets/lottie/Login.json";
 import Lottie from "lottie-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaFacebook, FaGoogle, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import {  FaGoogle, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
-import axios from "axios";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SignIn = (props) => {

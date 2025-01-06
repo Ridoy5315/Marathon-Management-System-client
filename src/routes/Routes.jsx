@@ -11,11 +11,13 @@ import RegistrationForm from "../pages/RegistrationForm";
 import MyMarathonList from "../pages/dashboardPages/MyMarathonList";
 import MyApplyList from "../pages/dashboardPages/MyApplyList";
 import PrivateRoute from "./PrivateRoute";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,

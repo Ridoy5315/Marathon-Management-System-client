@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import AddMarathon from "./dashboardPages/addMarathon";
-import MyMarathonList from "./dashboardPages/MyMarathonList";
-import MyApplyList from "./dashboardPages/MyApplyList";
 import useAuth from "../hooks/useAuth";
 
 const Dashboard = (props) => {

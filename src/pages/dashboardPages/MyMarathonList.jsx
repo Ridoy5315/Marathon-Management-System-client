@@ -14,11 +14,7 @@ const MyMarathonList = (props) => {
   const { user } = useAuth();
   const [myData, setMyData] = useState([]);
   const [modalData, setModalData] = useState({});
-  // const marathon_start_date = modalData?.marathon_start_date;
-  // console.log(marathon_start_date);
   const [startDate, setStartDate] = useState(new Date());
-  // console.log(startDate);
-  // console.log(modalData?.marathon_start_date)
   const [startRegistrationDate, setStartRegistrationDate] = useState(
     new Date()
   );
@@ -37,10 +33,9 @@ const MyMarathonList = (props) => {
   const handleDelete = async (id) => {
     try {
       await axiosSecure.delete(`/marathon-list/${id}`);
-      toast.success("Data Deleted Successfully!!!");
+      toast.success("Marathon Deleted Successfully!!!");
       fetchAllMarathonList();
     } catch (err) {
-      console.log(err);
       toast.error(err.message);
     }
   };
@@ -112,8 +107,7 @@ const MyMarathonList = (props) => {
       await axiosSecure.put(`/update-marathon/${modalData._id}`, updateData);
       document.getElementById("my_modal_1").close();
       await fetchAllMarathonList();
-      toast.success("Data Updated Successfully!!!");
-      // navigate(`/dashboard/my-apply-list/:email${user?.email}`)
+      toast.success("Marathon Information Updated Successfully!!!");
     } catch (err) {
       toast.error(err.message);
     }

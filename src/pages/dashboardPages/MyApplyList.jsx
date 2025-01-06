@@ -31,7 +31,7 @@ const MyApplyList = (props) => {
    const handleDelete = async id => {
     try {
       await axiosSecure.delete(`/apply-list/${id}`)
-      toast.success('Data Deleted Successfully!!!')
+      toast.success('Your application has been Deleted Successfully!!!')
       fetchAllApplicationData()
     } catch (err) {
       console.log(err)
@@ -97,8 +97,8 @@ const MyApplyList = (props) => {
       await axiosSecure.put(`/update-data/${modalData._id}`, updateData);
       document.getElementById('my_modal_1').close()
       await fetchAllApplicationData()
-      toast.success("Data Updated Successfully!!!");
-      // navigate(`/dashboard/my-apply-list/:email${user?.email}`)
+      toast.success("Your Application Information has been Updated Successfully!!!");
+      
     } catch (err) {
       toast.error(err.message);
     }
