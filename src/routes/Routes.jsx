@@ -57,6 +57,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/dashboard/add-marathon",
+            // index: true,
             element: <AddMarathon></AddMarathon>,
           },
           {

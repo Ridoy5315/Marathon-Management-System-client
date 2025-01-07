@@ -58,7 +58,7 @@ const Navbar = (props) => {
         {user ? (
           <li>
             <NavLink
-              to="/dashboard"
+              to="/dashboard/add-marathon"
               className={({ isActive }) =>
                 `py-1 px-3 rounded-md ${
                   isActive
@@ -149,8 +149,8 @@ const Navbar = (props) => {
             src={logoPhoto}
             alt=""
           />
-          <p className="text-secondary-color font-bold lg:text-2xl md:text-xl text-lg">
-            Marathon Milestone
+          <p className="text-primary-color font-bold lg:text-2xl md:text-xl text-lg">
+            Marathon <span className="text-secondary-color">Milestone</span>
           </p>
         </div>
       </div>

@@ -1,35 +1,59 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import LoadingSpinner from "./LoadingSpinner";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import { Typewriter } from 'react-simple-typewriter'
+import { Fade } from "react-awesome-reveal";
 
 const MarathonSection = (props) => {
+  const axiosSecure = useAxiosSecure()
   const [marathons, setMarathons] = useState([]);
+  const [loading, setLoading] = useState(true);
+  if(loading){
+      <LoadingSpinner></LoadingSpinner>
+    }
   useEffect(() => {
+    setLoading(true)
     const fetchAllMarathons = async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/home_marathons`
-      );
+      const { data } = await axiosSecure.get(`/home_marathons`);
       setMarathons(data);
+      setLoading(false)
     };
     fetchAllMarathons();
-  }, []);
+  }, [axiosSecure]);
   return (
     <div className="w-10/12 mx-auto">
       <div className="text-center space-y-3 mt-16">
-        <h2 className="text-4xl font-semibold">
-          On the <span className="text-secondary-color">Run!</span>
+        <h2 className="text-4xl font-semibold overflow-hidden">
+          On the {' '}
+          <span className="text-secondary-color">
+            <Typewriter 
+            words={['Run!', 'Move!', 'Go!', 'Race!', 'Journey!']}
+            loop={5}
+            cursor
+            cursorStyle='|'
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+            >
+
+            </Typewriter>
+          </span>
         </h2>
         <p className="px-44 font-light">
           Marathons aren't just races, we are celebrations of resilience, unity,
           and the joy of movement
         </p>
       </div>
-      <div className="grid grid-cols-3 gap-4 mt-10">
+      <div className="grid grid-cols-3 gap-4 mt-10 overflow-hidden">
         {marathons.map((marathon) => (
-          <div
-            key={marathon._id}
+          <Fade key={marathon._id} delay={100}
+          duration={1000}
+          triggerOnce
+          direction="up">
+            <div
             className="rounded-xl shadow-inner  shadow-blue-800/20 hover:shadow-rose-500/20 transform transition-transform duration-300 hover:scale-105"
           >
             <div className="lg:h-56 w-full p-3">
@@ -79,6 +103,7 @@ const MarathonSection = (props) => {
               </div>
             </div>
           </div>
+          </Fade>
         ))}
       </div>
     </div>

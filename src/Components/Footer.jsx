@@ -11,7 +11,7 @@ const Footer = (props) => {
         <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
           <div className="w-1/3 flex text-center">
             <span className="self-center text-4xl font-bold text-primary-color">
-              Marathon Milestone
+              Marathon <span className="text-secondary-color">Milestone</span>
             </span>
           </div>
           <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
