@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/pagination";
@@ -16,17 +16,22 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { Typewriter } from "react-simple-typewriter";
 import { Fade } from "react-awesome-reveal";
 const UpcomingMarathon = (props) => {
+  const [fadeKey, setFadeKey] = useState(0);
+
+  const handleSlideChange = () => {
+    setFadeKey((prevKey) => prevKey + 1);
+  };
   return (
     <div
-      className="w-full relative bg-cover bg-center h-[650px] mt-24"
+      className="w-full relative bg-cover bg-center lg:h-[650px] md:h-[550px] h-[450px] lg:mt-24 mt-16"
       style={{ backgroundImage: `url(${backGround})` }}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/65 "></div>
-      <div className=" space-y-8 relative z-10 pt-10 overflow-hidden">
-        <p className="text-6xl text-center text-gray-200 font-bold ">
+      <div className="lg:space-y-8 space-y-2 relative z-10 lg:pt-10 pt-6 overflow-hidden">
+        <p className="lg:text-6xl md:text-4xl text-2xl text-center text-gray-200 font-bold overflow-hidden">
           <Typewriter
             words={["UPCOMING EVENTS", "Future Challenges", "Upcoming Runs"]}
-            loop={5}
+            loop={false}
             cursor
             typeSpeed={100}
             deleteSpeed={70}
@@ -42,18 +47,15 @@ const UpcomingMarathon = (props) => {
           delay: 3000,
           disableOnInteraction: false,
         }}
-        //dot dot
-        //    pagination={{
-        //      clickable: true,
-        //    }}
-        //    navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
+        onSlideChange={handleSlideChange}
         className="mySwiper"
       >
         <SwiperSlide>
-          <div className=" text-white flex justify-between px-32 pt-14">
-            <div className="flex flex-col gap-8 justify-center overflow-hidden">
+          <div className=" text-white flex lg:flex-row flex-col justify-between lg:px-32 md:px-12 px-6 lg:pt-14 pt-6">
+            <div className="flex flex-col lg:gap-8 gap-2 justify-center overflow-hidden">
               <Fade
+              key={fadeKey}
                 delay={100}
                 duration={1000}
                 triggerOnce
@@ -61,34 +63,33 @@ const UpcomingMarathon = (props) => {
                 cascade
                 damping={0.3}
               >
-                <p className="text-[#dcdcdc96] text-xl flex items-center">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Possible registration start date:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     2025/11/25
                   </span>
                 </p>
-                <p className="font-semibold text-4xl text-secondary-color">
+                <p className="font-semibold lg:text-4xl md:text-3xl text-2xl text-secondary-color">
                   RUNNING FESTIVAL
                 </p>
-                <p className="text-[#dcdcdc96] text-xl flex items-center ">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center ">
                   Location:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     Central Park
                   </span>
                 </p>
               </Fade>
             </div>
-            <div className="space-y-3">
-              <div className="flex flex-row-reverse">
-                <div className="bg-secondary-color px-4 py-4 rounded-full">
+            <div className="lg:space-y-3">
+              <div className="flex  flex-row-reverse">
+                <div className="bg-secondary-color lg:block hidden px-4 py-4 rounded-full">
                   <FaArrowRightLong></FaArrowRightLong>
                 </div>
               </div>
-              <div className="h-72 w-[500px] ">
+              <div className="lg:h-72 lg:w-[500px] md:h-72 h-52 lg:mt-0 mt-4 flex justify-center" >
                 <img
-                  className="h-full w-full border-t-8 border-t-primary-color border-b-8 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
+                  className="h-full lg:w-full lg:border-t-8 md:border-t-8 border-t-4 border-t-primary-color lg:border-b-8 md:border-b-8 border-b-4 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
                   src={slider1}
-                  alt=""
                 />
               </div>
             </div>
@@ -96,9 +97,10 @@ const UpcomingMarathon = (props) => {
         </SwiperSlide>
         {/* slider 2 */}
         <SwiperSlide>
-          <div className=" text-white flex justify-between px-32 pt-14">
-            <div className="flex flex-col gap-8 justify-center overflow-hidden">
+          <div className=" text-white flex lg:flex-row flex-col justify-between lg:px-32 md:px-12 px-6 lg:pt-14 pt-6">
+            <div className="flex flex-col lg:gap-8 gap-2 justify-center overflow-hidden">
               <Fade
+              key={fadeKey}
                 delay={100}
                 duration={1000}
                 triggerOnce
@@ -106,32 +108,32 @@ const UpcomingMarathon = (props) => {
                 cascade
                 damping={0.3}
               >
-                <p className="text-[#dcdcdc96] text-xl flex items-center">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Possible registration start date:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     2026/02/21
                   </span>
                 </p>
-                <p className="font-semibold text-4xl text-secondary-color">
+                <p className="font-semibold lg:text-4xl md:text-3xl text-2xl text-secondary-color">
                   AUTUMN START
                 </p>
-                <p className="text-[#dcdcdc96] text-xl flex items-center ">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Location:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     NY Central Hill
                   </span>
                 </p>
               </Fade>
             </div>
-            <div className="space-y-3">
+            <div className="lg:space-y-3">
               <div className="flex flex-row-reverse">
-                <div className="bg-secondary-color px-4 py-4 rounded-full">
+                <div className="bg-secondary-color lg:block hidden px-4 py-4 rounded-full">
                   <FaArrowRightLong></FaArrowRightLong>
                 </div>
               </div>
-              <div className="h-72 w-[500px] ">
+              <div className="lg:h-72 lg:w-[500px] md:h-72 h-52 lg:mt-0 mt-4 flex justify-center">
                 <img
-                  className="h-full w-full border-t-8 border-t-primary-color border-b-8 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
+                  className="h-full lg:w-full lg:border-t-8 md:border-t-8 border-t-4 border-t-primary-color lg:border-b-8 md:border-b-8 border-b-4 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
                   src={slider2}
                   alt=""
                 />
@@ -141,9 +143,10 @@ const UpcomingMarathon = (props) => {
         </SwiperSlide>
         {/* slider 3 */}
         <SwiperSlide>
-          <div className=" text-white flex justify-between px-32 pt-14">
-            <div className="flex flex-col gap-8 justify-center overflow-hidden">
+          <div className=" text-white flex lg:flex-row flex-col justify-between lg:px-32 md:px-12 px-6 lg:pt-14 pt-6">
+            <div className="flex flex-col lg:gap-8 gap-2 justify-center overflow-hidden">
               <Fade
+              key={fadeKey}
                 delay={100}
                 duration={1000}
                 triggerOnce
@@ -151,32 +154,32 @@ const UpcomingMarathon = (props) => {
                 cascade
                 damping={0.3}
               >
-                <p className="text-[#dcdcdc96] text-xl flex items-center">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Possible registration start date:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     2025/09/17
                   </span>
                 </p>
-                <p className="font-semibold text-4xl text-secondary-color">
+                <p className="font-semibold lg:text-4xl md:text-3xl text-2xl text-secondary-color">
                   PRE-RUN NYC
                 </p>
-                <p className="text-[#dcdcdc96] text-xl flex items-center ">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Location:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     Boston West Road
                   </span>
                 </p>
               </Fade>
             </div>
-            <div className="space-y-3">
+            <div className="lg:space-y-3">
               <div className="flex flex-row-reverse">
-                <div className="bg-secondary-color px-4 py-4 rounded-full">
+                <div className="bg-secondary-color lg:block hidden px-4 py-4 rounded-full">
                   <FaArrowRightLong></FaArrowRightLong>
                 </div>
               </div>
-              <div className="h-72 w-[500px] ">
+              <div className="lg:h-72 lg:w-[500px] md:h-72 h-52 lg:mt-0 mt-4 flex justify-center">
                 <img
-                  className="h-full w-full border-t-8 border-t-primary-color border-b-8 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
+                  className="h-full lg:w-full lg:border-t-8 md:border-t-8 border-t-4 border-t-primary-color lg:border-b-8 md:border-b-8 border-b-4 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
                   src={slider3}
                   alt=""
                 />
@@ -186,9 +189,10 @@ const UpcomingMarathon = (props) => {
         </SwiperSlide>
         {/* slider 4 */}
         <SwiperSlide>
-          <div className=" text-white flex justify-between px-32 pt-14">
-            <div className="flex flex-col gap-8 justify-center overflow-hidden">
+          <div className=" text-white flex lg:flex-row flex-col justify-between lg:px-32 md:px-12 px-6 lg:pt-14 pt-6">
+            <div className="flex flex-col lg:gap-8 gap-2 justify-center overflow-hidden">
               <Fade
+              key={fadeKey}
                 delay={100}
                 duration={1000}
                 triggerOnce
@@ -196,32 +200,32 @@ const UpcomingMarathon = (props) => {
                 cascade
                 damping={0.3}
               >
-                <p className="text-[#dcdcdc96] text-xl flex items-center">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Possible registration start date:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     2026/02/10
                   </span>
                 </p>
-                <p className="font-semibold text-4xl text-secondary-color">
+                <p className="font-semibold lg:text-4xl md:text-3xl text-2xl text-secondary-color">
                   Winter Wonderland Marathon
                 </p>
-                <p className="text-[#dcdcdc96] text-xl flex items-center ">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Location:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     Arizona City Park
                   </span>
                 </p>
               </Fade>
             </div>
-            <div className="space-y-3">
+            <div className="lg:space-y-3">
               <div className="flex flex-row-reverse">
-                <div className="bg-secondary-color px-4 py-4 rounded-full">
+                <div className="bg-secondary-color lg:block hidden px-4 py-4 rounded-full">
                   <FaArrowRightLong></FaArrowRightLong>
                 </div>
               </div>
-              <div className="h-72 w-[500px] ">
+              <div className="lg:h-72 lg:w-[500px] md:h-72 h-52 lg:mt-0 mt-4 flex justify-center">
                 <img
-                  className="h-full w-full border-t-8 border-t-primary-color border-b-8 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
+                  className="h-full lg:w-full lg:border-t-8 md:border-t-8 border-t-4 border-t-primary-color lg:border-b-8 md:border-b-8 border-b-4 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
                   src={slider4}
                   alt=""
                 />
@@ -231,9 +235,10 @@ const UpcomingMarathon = (props) => {
         </SwiperSlide>
         {/* slider 5 */}
         <SwiperSlide>
-          <div className=" text-white flex justify-between px-32 pt-14">
-            <div className="flex flex-col gap-8 justify-center overflow-hidden">
+          <div className=" text-white flex lg:flex-row flex-col justify-between lg:px-32 md:px-12 px-6 lg:pt-14 pt-6">
+            <div className="flex flex-col lg:gap-8 gap-2 justify-center overflow-hidden">
               <Fade
+              key={fadeKey}
                 delay={100}
                 duration={1000}
                 triggerOnce
@@ -241,32 +246,32 @@ const UpcomingMarathon = (props) => {
                 cascade
                 damping={0.3}
               >
-                <p className="text-[#dcdcdc96] text-xl flex items-center">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Possible registration start date:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     2025/11/19
                   </span>
                 </p>
-                <p className="font-semibold text-4xl text-secondary-color">
+                <p className="font-semibold lg:text-4xl md:text-3xl text-2xl text-secondary-color">
                   Night Glow Run
                 </p>
-                <p className="text-[#dcdcdc96] text-xl flex items-center ">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Location:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     Dublin, Ireland
                   </span>
                 </p>
               </Fade>
             </div>
-            <div className="space-y-3">
+            <div className="lg:space-y-3">
               <div className="flex flex-row-reverse">
-                <div className="bg-secondary-color px-4 py-4 rounded-full">
+                <div className="bg-secondary-color lg:block hidden px-4 py-4 rounded-full">
                   <FaArrowRightLong></FaArrowRightLong>
                 </div>
               </div>
-              <div className="h-72 w-[500px] ">
+              <div className="lg:h-72 lg:w-[500px] md:h-72 h-52 lg:mt-0 mt-4 flex justify-center">
                 <img
-                  className="h-full w-full border-t-8 border-t-primary-color border-b-8 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
+                  className="h-full lg:w-full lg:border-t-8 md:border-t-8 border-t-4 border-t-primary-color lg:border-b-8 md:border-b-8 border-b-4 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
                   src={slider5}
                   alt=""
                 />
@@ -276,9 +281,10 @@ const UpcomingMarathon = (props) => {
         </SwiperSlide>
         {/* slider 6 */}
         <SwiperSlide>
-          <div className=" text-white flex justify-between px-32 pt-14">
-            <div className="flex flex-col gap-8 justify-center overflow-hidden">
+          <div className=" text-white flex lg:flex-row flex-col justify-between lg:px-32 md:px-12 px-6 lg:pt-14 pt-6">
+            <div className="flex flex-col lg:gap-8 gap-2 justify-center overflow-hidden">
               <Fade
+              key={fadeKey}
                 delay={100}
                 duration={1000}
                 triggerOnce
@@ -286,32 +292,32 @@ const UpcomingMarathon = (props) => {
                 cascade
                 damping={0.3}
               >
-                <p className="text-[#dcdcdc96] text-xl flex items-center">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Possible registration start date:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     2026/07/21
                   </span>
                 </p>
-                <p className="font-semibold text-4xl text-secondary-color">
+                <p className="font-semibold lg:text-4xl md:text-3xl text-2xl text-secondary-color">
                   Run Challenge
                 </p>
-                <p className="text-[#dcdcdc96] text-xl flex items-center ">
+                <p className="text-[#dcdcdc96] lg:text-xl md:text-base text-sm flex items-center">
                   Location:{" "}
-                  <span className="ml-4 font-medium text-gray-200  text-4xl">
+                  <span className="ml-4 font-medium text-gray-200  lg:text-4xl md:text-3xl text-2xl">
                     Vancouver, Canada
                   </span>
                 </p>
               </Fade>
             </div>
-            <div className="space-y-3">
+            <div className="lg:space-y-3">
               <div className="flex flex-row-reverse">
-                <div className="bg-secondary-color px-4 py-4 rounded-full">
+                <div className="bg-secondary-color lg:block hidden px-4 py-4 rounded-full">
                   <FaArrowRightLong></FaArrowRightLong>
                 </div>
               </div>
-              <div className="h-72 w-[500px] ">
+              <div className="lg:h-72 lg:w-[500px] md:h-72 h-52 lg:mt-0 mt-4 flex justify-center">
                 <img
-                  className="h-full w-full border-t-8 border-t-primary-color border-b-8 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
+                  className="h-full lg:w-full lg:border-t-8 md:border-t-8 border-t-4 border-t-primary-color lg:border-b-8 md:border-b-8 border-b-4 border-b-secondary-color rounded-tr-3xl rounded-bl-3xl"
                   src={slider6}
                   alt=""
                 />

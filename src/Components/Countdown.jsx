@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Fade, Zoom } from "react-awesome-reveal";
-import { Typewriter, useTypewriter } from "react-simple-typewriter";
 
 const Countdown = ({ targetDate }) => {
   const timeLeft = () => {
@@ -25,7 +23,7 @@ const Countdown = ({ targetDate }) => {
       setLeft(timeLeft());
     }, 1000);
 
-    return () => clearInterval(timer); // Cleanup on component unmount
+    return () => clearInterval(timer); 
   }, [targetDate]);
 
   if (!left) {
@@ -36,58 +34,46 @@ const Countdown = ({ targetDate }) => {
     );
   }
   return (
-    <div className="text-center relative z-10 text-white pt-12 space-y-14">
-      <div className="space-y-6">
-        <h4 className="text-3xl font-semibold">Next Event</h4>
+    <div className="text-center relative z-10 text-white lg:pt-12 md:pt-8 pt-6 lg:space-y-14 md:space-y-8 space-y-6">
+      <div className="lg:space-y-6 md:space-y-3 space-y-2">
+        <h4 className="lg:text-3xl md:text-2xl text-xl font-semibold">Next Event</h4>
 
-        <p className="text-[#e2e0e0] text-lg">JAN 25, 2025</p>
+        <p className="text-[#e2e0e0] lg:text-lg md:text-base text-xs">JAN 25, 2025</p>
 
-        <h2 className="text-6xl font-semibold">
-          <Typewriter
-            words={["EARTH DAY ECO RUN"]}
-            loop={false}
-            cursor
-            cursorStyle="|"
-            typeSpeed={50}
-            deleteSpeed={50}
-            delaySpeed={1500}
-          ></Typewriter>
-        </h2>
-        <p className="text-[#e2e0e0] text-2xl font-semibold">
+        <h2 className="lg:text-6xl md:text-5xl text-3xl font-semibold">EARTH DAY ECO RUN</h2>
+        <p className="text-[#e2e0e0] lg:text-2xl md:text-xl font-semibold">
           Registration Time Remaining
         </p>
       </div>
-      <div className="flex justify-center gap-8">
+      <div className="flex justify-center lg:gap-8 md:gap-6 gap-4">
         <div className="">
-          <p className="border py-8 px-8 rounded-full text-6xl font-bold">
+          <p className="border lg:py-8 lg:px-8 md:py-6 md:px-6 py-4 px-4 rounded-full lg:text-6xl md:text-5xl text-3xl font-bold">
             {left.days}
           </p>
-          <span className="text-[#d5d4d4b2] text-xl font-light">Days</span>
+          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">Days</span>
         </div>
         <div>
-          <p className="border py-8 px-8 rounded-full text-6xl font-bold">
+          <p className="border lg:py-8 lg:px-8 md:py-6 md:px-6 py-4 px-4 rounded-full lg:text-6xl md:text-5xl text-3xl font-bold">
             {left.hours}
           </p>
-          <span className="text-[#d5d4d4b2] text-xl font-light">Hours</span>
+          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">Hours</span>
         </div>
         <div>
-          <p className="border py-8 px-8 rounded-full text-6xl font-bold">
+          <p className="border lg:py-8 lg:px-8 md:py-6 md:px-6 py-4 px-4 rounded-full lg:text-6xl md:text-5xl text-3xl font-bold">
             {left.minutes}
           </p>
-          <span className="text-[#d5d4d4b2] text-xl font-light">Minutes</span>
+          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">Minutes</span>
         </div>
         <div>
-          <p className="border py-8 px-8 rounded-full text-6xl font-bold">
+          <p className="border lg:py-8 lg:px-8 md:py-6 md:px-6 py-4 px-4 rounded-full lg:text-6xl md:text-5xl text-3xl font-bold">
             {left.seconds}
           </p>
-          <span className="text-[#d5d4d4b2] text-xl font-light">Seconds</span>
+          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">Seconds</span>
         </div>
-        {/* {left.days} Days {left.hours} Hours {left.minutes} Minutes{" "}
-        {left.seconds} Seconds */}
       </div>
 
       <div className="">
-        <button className="bg-secondary-color px-10 py-5 rounded-full font-semibold">
+        <button className="bg-secondary-color lg:px-10 lg:py-5 md:px-8 md:py-3 px-4 py-1 rounded-full font-semibold">
           REGISTER NOW
         </button>
       </div>

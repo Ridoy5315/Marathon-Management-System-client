@@ -6,11 +6,11 @@ import { FiYoutube } from "react-icons/fi";
 import { FaXTwitter } from "react-icons/fa6";
 const Footer = (props) => {
   return (
-    <div className="bg-[#F5F5F5] mt-32">
+    <div className="bg-[#F5F5F5] lg:mt-32 md:mt-24 mt-16">
       <footer className="px-4 divide-y">
         <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
           <div className="w-1/3 flex text-center">
-            <span className="self-center text-4xl font-bold text-primary-color">
+            <span className="self-center flex gap-2 lg:text-4xl md:text-4xl text-3xl font-bold text-primary-color">
               Marathon <span className="text-secondary-color">Milestone</span>
             </span>
           </div>

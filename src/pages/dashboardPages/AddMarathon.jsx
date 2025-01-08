@@ -7,8 +7,9 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { compareAsc } from "date-fns";
+import { Typewriter } from "react-simple-typewriter";
 const AddMarathon = (props) => {
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { user } = useAuth();
   const [marathonDate, setMarathonDate] = useState(new Date());
@@ -16,7 +17,7 @@ const AddMarathon = (props) => {
     new Date()
   );
   const [endRegistrationDate, setEndRegistrationDate] = useState(new Date());
- 
+
   const [runningDistanceError, setRunningDistanceError] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -31,10 +32,8 @@ const AddMarathon = (props) => {
     const marathon_image = form.image.value;
     const description = form.description.value;
     const running_distance = form.distance.value;
-    if(running_distance === 'Choose one'){
-      setRunningDistanceError(
-        "Please choose a option of running distance"
-      );
+    if (running_distance === "Choose one") {
+      setRunningDistanceError("Please choose a option of running distance");
       return;
     }
     const marathon_start_date = marathonDate;
@@ -42,12 +41,31 @@ const AddMarathon = (props) => {
     const end_registration_date = endRegistrationDate;
     const addMarathonDate = new Date();
 
-    if(compareAsc(new Date(start_registration_date), new Date(end_registration_date)) === 1){
-      return toast.error("The Marathon registration deadline date cann't be earlier than the Marathon registration start date")
+    if (
+      compareAsc(
+        new Date(start_registration_date),
+        new Date(end_registration_date)
+      ) === 1
+    ) {
+      return toast.error(
+        "The Marathon registration deadline date cann't be earlier than the Marathon registration start date"
+      );
     }
 
-    if(compareAsc(new Date(end_registration_date), new Date(marathon_start_date)) === 1 || compareAsc(new Date(start_registration_date), new Date(marathon_start_date)) === 1 || compareAsc(new Date(addMarathonDate), new Date(marathon_start_date)) === 1){
-      return toast.error("The Marathon start date cann't be earlier than the registration deadline date")
+    if (
+      compareAsc(
+        new Date(end_registration_date),
+        new Date(marathon_start_date)
+      ) === 1 ||
+      compareAsc(
+        new Date(start_registration_date),
+        new Date(marathon_start_date)
+      ) === 1 ||
+      compareAsc(new Date(addMarathonDate), new Date(marathon_start_date)) === 1
+    ) {
+      return toast.error(
+        "The Marathon start date cann't be earlier than the registration deadline date"
+      );
     }
 
     const formData = {
@@ -68,13 +86,13 @@ const AddMarathon = (props) => {
       registration_count: 0,
     };
 
-    try{
-      await axiosSecure.post(`/add-marathon`, formData)
-      form.reset()
-      toast.success("You organized marathon competition has been added")
-      navigate('/dashboard/my-marathon-list')
-    }catch (err) {
-      toast.error(err.message)
+    try {
+      await axiosSecure.post(`/add-marathon`, formData);
+      form.reset();
+      toast.success("You organized marathon competition has been added");
+      navigate("/dashboard/my-marathon-list");
+    } catch (err) {
+      toast.error(err.message);
     }
   };
 
@@ -88,9 +106,15 @@ const AddMarathon = (props) => {
           className="container flex flex-col mx-auto space-y-12"
         >
           <fieldset className="grid grid-cols-5 gap-4 px-8 rounded-md">
-            <div className="flex justify-center items-center col-span-2">
+            <div className="flex justify-center items-center col-span-2 overflow-hidden">
               <p className="font-semibold text-primary-color text-4xl leading-relaxed">
-                Revolutionize Your Marathon Planning with Ease and Efficiency!
+                <Typewriter
+                  words={[
+                    "Revolutionize Your Marathon Planning with Ease and Efficiency!",
+                  ]}
+                  loop={1}
+                  typeSpeed={80}
+                ></Typewriter>
               </p>
             </div>
             <div className="col-span-3 space-y-7">
@@ -161,7 +185,7 @@ const AddMarathon = (props) => {
                     <option value="25 kilometer">25 kilometer</option>
                   </select>
                 </div>
-                
+
                 <div className="flex flex-col gap-1">
                   <label className="text-primary-color">
                     Marathon Start Date
@@ -173,7 +197,9 @@ const AddMarathon = (props) => {
                     onChange={(date) => setMarathonDate(date)}
                   />
                 </div>
-                {runningDistanceError && <p className="text-sm text-red-500">{runningDistanceError}</p>}
+                {runningDistanceError && (
+                  <p className="text-sm text-red-500">{runningDistanceError}</p>
+                )}
               </div>
 
               {/* row five */}

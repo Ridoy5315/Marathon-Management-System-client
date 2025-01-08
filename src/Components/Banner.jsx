@@ -35,7 +35,7 @@ const Banner = (props) => {
       >
         <SwiperSlide>
           <div
-            className="w-full relative bg-cover bg-center h-screen"
+            className="w-full relative bg-cover bg-center lg:h-screen md:h-screen h-[500px]"
             style={{ backgroundImage: `url(${banner1})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/55"></div>
@@ -59,7 +59,7 @@ const Banner = (props) => {
         </SwiperSlide>
         <SwiperSlide>
           <div
-            className="lg:w-full relative bg-cover bg-center h-screen"
+            className="lg:w-full relative bg-cover bg-center lg:h-screen md:h-screen h-[500px]"
             style={{ backgroundImage: `url(${banner2})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/55"></div>
@@ -84,7 +84,7 @@ const Banner = (props) => {
         </SwiperSlide>
         <SwiperSlide>
           <div
-            className="w-full relative bg-cover bg-center h-screen"
+            className="w-full relative bg-cover bg-center lg:h-screen md:h-screen h-[500px]"
             style={{ backgroundImage: `url(${banner3})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/55"></div>
@@ -109,7 +109,7 @@ const Banner = (props) => {
         </SwiperSlide>
         <SwiperSlide>
           <div
-            className="w-full relative bg-cover bg-center h-screen"
+            className="w-full relative bg-cover bg-center lg:h-screen md:h-screen h-[500px]"
             style={{ backgroundImage: `url(${banner4})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/55"></div>

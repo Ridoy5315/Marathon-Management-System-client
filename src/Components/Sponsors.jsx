@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Marquee from 'react-fast-marquee';
-import { Link } from 'react-router-dom';
 import sponsor1 from '../assets/sponsors/Gatorade.png'
 import sponsor2 from '../assets/sponsors/Monster Energy.png'
 import sponsor4 from '../assets/sponsors/Nuun Hydration.png'
@@ -12,25 +11,25 @@ import sponsor8 from '../assets/sponsors/Asics.png'
 const Sponsors = props => {
      return (
           <div>
-               <div className=' mt-5 px-16 rounded-md flex justify-center items-center'>
-               <Marquee pauseOnHover={true} className='space-x-5 py-10 text-lg font-semibold'>
-                    <div className='h-20 w-28 mr-44 flex items-center'>
+               <div className='lg:mt-5 mt-3 lg:px-16 md:px-10 px-8 rounded-md flex justify-center items-center'>
+               <Marquee pauseOnHover={true} className='lg"space-x-5 md:space-x-2 lg:py-10 md:py-4 py-2 lg:text-lg md:text-base text-sm font-semibold'>
+                    <div className='lg:h-20 md:h-14 h-8 lg:w-28 md:w-20 w-10 lg:mr-44 md:mr-28 mr-16 flex items-center'>
                          <img className='w-full' src={sponsor1} alt="" />
                     </div>
-                    <div className='h-20 w-20 mr-44 flex items-center'>
+                    <div className='lg:h-20 md:h-14 h-8 lg:w-28 md:w-20 w-10 lg:mr-44 md:mr-28 mr-16  flex items-center'>
                          <img src={sponsor2} alt="" />
                     </div>
-                    <div className='h-20 w-20 mr-44 flex items-center'>
+                    <div className='lg:h-20md:h-14 h-8 lg:w-28 md:w-20 w-10 lg:mr-44 md:mr-28 mr-16  flex items-center'>
                          <img src={sponsor4} alt="" />
                     </div>
                     
-                    <div className='h-20 w-20 mr-44 flex items-center'>
+                    <div className='lg:h-20 md:h-14 h-8 lg:w-28 md:w-20 w-10 lg:mr-44 md:mr-28 mr-16 flex items-center'>
                          <img src={sponsor6} alt="" />
                     </div>
-                    <div className='h-20 w-20 mr-44 flex items-center'>
+                    <div className='lg:h-20 md:h-14 h-8 lg:w-28 md:w-20 w-10 lg:mr-44 md:mr-28 mr-16 flex items-center'>
                          <img src={sponsor7} alt="" />
                     </div>
-                    <div className='h-20 w-20 mr-44 flex items-center'>
+                    <div className='lg:h-20 md:h-14 h-8 lg:w-28 md:w-20 w-10 lg:mr-44 md:mr-28 mr-16 flex items-center'>
                          <img src={sponsor8} alt="" />
                     </div>
                    

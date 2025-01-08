@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import logoPhoto from "../assets/4 copy.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 const Navbar = (props) => {
   const { user, logOutUser } = useAuth();
   const [activeButton, setActiveButton] = useState("Login");
+  const [dashboardActive, setDashboardActive] = useState(false);
+  const {pathname} = useLocation();
+  console.log(pathname)
+  ///dashboard/my-marathon-list
+  ///dashboard/my-apply-list
+
+  useEffect(() => {
+    if(pathname === "/dashboard/my-marathon-list" || pathname === "/dashboard/my-apply-list"){
+      setDashboardActive(true);
+    }
+    else{
+      setDashboardActive(false);
+    }
+  }, [pathname])
 
   const handleLogOut = () => {
     logOutUser().then(() => {
@@ -29,9 +43,9 @@ const Navbar = (props) => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `py-1 px-3 rounded-md ${
+              `lg:py-1 lg:px-3  py-0.5 px-1 lg:text-base text-sm rounded-md ${
                 isActive
-                  ? "bg-primary-color text-white"
+                  ? "bg-primary-color text-white focus:bg-primary-color focus:text-white"
                   : "text-primary-color font-semibold hover:bg-gray-200"
               }`
             }
@@ -44,9 +58,9 @@ const Navbar = (props) => {
           <NavLink
             to="/marathons"
             className={({ isActive }) =>
-              `py-1 px-3 rounded-md ${
+              `lg:py-1 lg:px-3  py-0.5 px-1 lg:text-base  text-sm  rounded-md ${
                 isActive
-                  ? "bg-primary-color text-white"
+                  ? "bg-primary-color text-white focus:bg-primary-color focus:text-white"
                   : "text-primary-color font-semibold hover:bg-gray-200"
               }`
             }
@@ -60,9 +74,9 @@ const Navbar = (props) => {
             <NavLink
               to="/dashboard/add-marathon"
               className={({ isActive }) =>
-                `py-1 px-3 rounded-md ${
-                  isActive
-                    ? "bg-primary-color text-white"
+                `lg:py-1 lg:px-3  py-0.5 px-1 lg:text-base  text-sm  rounded-md ${
+                  isActive || dashboardActive
+                    ? "bg-primary-color text-white focus:bg-primary-color focus:text-white"
                     : "text-primary-color font-semibold hover:bg-gray-200"
                 }`
               }
@@ -117,7 +131,7 @@ const Navbar = (props) => {
   //   </nav>
   // );
   return (
-    <div className="navbar my-4 bg-base-100 font-fontHeading">
+    <div className="navbar lg:my-4 md:my-3 bg-base-100 font-fontHeading">
       <div className="navbar-start justify-between lg:justify-start">
         <div className="dropdown mr-8">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -138,7 +152,7 @@ const Navbar = (props) => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[20] mt-3 w-52 p-2"
+            className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[20] py-1 px-2"
           >
             {links}
           </ul>
@@ -149,28 +163,31 @@ const Navbar = (props) => {
             src={logoPhoto}
             alt=""
           />
-          <p className="text-primary-color font-bold lg:text-2xl md:text-xl text-lg">
+          <p className="text-primary-color font-bold lg:text-2xl lg:block md:block hidden md:text-xl text-lg">
             Marathon <span className="text-secondary-color">Milestone</span>
           </p>
+          <p className="text-primary-color font-bold lg:hidden md:hidden block text-2xl">
+            M <span className="text-secondary-color">M</span>
+          </p>
+          
         </div>
       </div>
-      {/* <div className="navbar-center hidden lg:flex"></div> */}
       <div className="navbar-end flex lg:gap-6 md:gap-6 gap-3">
-        <ul className="menu menu-horizontal text-base text-primary-color ">
+        <ul className="menu menu-horizontal lg:block md:hidden hidden  text-base text-primary-color ">
           {links}
         </ul>
         {/* divider */}
-        <div className="divider divider-horizontal py-2 mx-0"></div>
+        <div className="divider divider-horizontal lg:block md:hidden hidden py-2 mx-0"></div>
         {user ? (
           <div className="flex items-center gap-3">
             <div className="avatar">
-              <div className="w-12 rounded-full">
+              <div className="lg:w-12 md:w-12 w-10 rounded-full">
                 <img src={user.photoURL} />
               </div>
             </div>
             <button
               onClick={handleLogOut}
-              className="py-2 px-4 rounded bg-primary-color text-white hover:bg-secondary-color"
+              className="lg:py-2 lg:px-4 md:py-2 md:px-4 py-1 px-3 rounded bg-primary-color text-white hover:bg-secondary-color"
             >
               Logout
             </button>
@@ -180,7 +197,7 @@ const Navbar = (props) => {
             <Link
               to="/login"
               onClick={() => setActiveButton("Login")}
-              className={`py-2 px-4 rounded ${
+              className={`lg:py-2 lg:px-4 md:py-2 md:px-4 py-1 px-3 rounded ${
                 activeButton === "Login"
                   ? "bg-primary-color text-white"
                   : "text-primary-color border border-primary-color hover:border-secondary-color font-bold hover:bg-secondary-color hover:text-white"
@@ -191,7 +208,7 @@ const Navbar = (props) => {
             <Link
               to="/registration"
               onClick={() => setActiveButton("Register")}
-              className={`py-2 px-4 rounded ${
+              className={`lg:py-2 lg:px-4 md:py-2 md:px-4 py-1 px-3 rounded ${
                 activeButton === "Register"
                   ? "bg-primary-color text-white"
                   : "text-primary-color border border-primary-color hover:border-secondary-color font-bold hover:bg-secondary-color hover:text-white"

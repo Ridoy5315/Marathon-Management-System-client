@@ -14,15 +14,15 @@ const MarathonCard = ({ marathon }) => {
     _id,
   } = marathon || {};
   return (
-    <div className="rounded-xl shadow-xl  shadow-blue-800/20 hover:shadow-rose-500/20 transform transition-transform duration-300 hover:scale-105">
-      <div className="lg:h-56 w-full ">
+    <div className="rounded-xl shadow-lg shadow-blue-800/20 hover:shadow-rose-500/20 transform transition-transform duration-300 hover:scale-105">
+      <div className="lg:h-56 md:h-48 w-full ">
         <img
           className="w-full h-full rounded-t-xl"
           src={marathon_image}
           alt=""
         />
       </div>
-      <div className="p-6 space-y-2">
+      <div className="lg:p-6 md:p-4 space-y-2 ">
         <h4 className="font-semibold text-xl">{marathon_title}</h4>
         <p className="font-light text-sm">
           Location: <span className="text-base font-medium">{location}</span>
