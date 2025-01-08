@@ -115,7 +115,7 @@ const MyMarathonList = (props) => {
 
   return (
     <div>
-      <div className="container p-2 mx-auto text-gray-800">
+      <div className="container lg:p-2 md:p-2 mx-auto text-gray-800">
         <h2 className="mb-4 lg:text-2xl md:text-2xl text-xl border-b-4 font-semibold leading-tight">
           Total Marathons: {myData.length}
         </h2>
@@ -133,10 +133,10 @@ const MyMarathonList = (props) => {
             <thead className="bg-gray-300">
               <tr className="text-left">
                 <th className="p-3">Title</th>
-                <th className="p-3">Location</th>
-                <th className="p-3">Running Distance</th>
+                <th className="p-3 hidden lg:block md:block">Location</th>
+                <th className="p-3 ">Running Distance</th>
                 <th className="p-3">Marathon Start Date</th>
-                <th className="p-3">Registration Deadline</th>
+                <th className="p-3 ">Registration Deadline</th>
                 <th className="p-3 text-right"></th>
                 <th className="p-3"></th>
               </tr>
@@ -150,7 +150,7 @@ const MyMarathonList = (props) => {
                   <td className="p-3">
                     <p>{data?.marathon_title}</p>
                   </td>
-                  <td className="p-3">
+                  <td className="p-3 hidden lg:block md:block">
                     <p>{data?.location}</p>
                   </td>
                   <td className="p-3">
@@ -159,12 +159,12 @@ const MyMarathonList = (props) => {
                   <td className="p-3">
                     <p>{format(new Date(data?.marathon_start_date), "PPP")}</p>
                   </td>
-                  <td className="p-3">
+                  <td className="p-3 ">
                     <p>
                       {format(new Date(data?.end_registration_date), "PPP")}
                     </p>
                   </td>
-                  <td className="md:flex lg:mt-1 md:mt-3 gap-1">
+                  <td className="flex md:flex-row lg:flex-row flex-col items-center lg:mt-1 md:mt-3 mt-2 gap-1">
                     <td
                       className="lg:pl-6 md:pl-2 text-left tooltip"
                       data-tip="Update"

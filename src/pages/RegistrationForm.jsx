@@ -12,7 +12,6 @@ const RegistrationForm = (props) => {
   const { user } = useAuth();
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
-
   const { _id, marathon_title, marathon_start_date } = formData || {};
 
   useEffect(() => {
@@ -68,7 +67,7 @@ const RegistrationForm = (props) => {
   };
 
   return (
-    <div className="w-11/12 mx-auto mt-24">
+    <div className="w-11/12 mx-auto lg:mt-24 md:mt-20 mt-10">
       <section className=" text-gray-600">
         <form
           onSubmit={handleRegistrationMarathon}
@@ -76,13 +75,13 @@ const RegistrationForm = (props) => {
           action=""
           className="container flex flex-col mx-auto space-y-12"
         >
-          <fieldset className="grid grid-cols-5 gap-8 rounded-md">
-            <div className="flex justify-center items-center col-span-2">
-              <p className="font-semibold text-primary-color text-4xl leading-relaxed">
-                Celebrate your hard work with every step toward the finish line.
+          <fieldset className="grid lg:grid-cols-5 grid-cols-1 lg:gap-8 gap-6 rounded-md">
+            <div className="flex justify-center text-center lg:mx-0 md:mx-20 mx-6 lg:text-start items-center lg:col-span-2">
+              <p className="font-semibold text-primary-color lg:text-4xl md:text-3xl text-2xl lg:leading-relaxed md:leading-relaxed">
+                Celebrate your hard work with every step toward the finish line
               </p>
             </div>
-            <div className="col-span-3 space-y-7">
+            <div className="lg:col-span-3 lg:space-y-7 space-y-5">
               {/* row one */}
               <div className="grid grid-cols-2 gap-5">
                 <div className="">

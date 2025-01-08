@@ -23,6 +23,31 @@ const MarathonDetails = (props) => {
   });
   const { user } = useAuth();
   const [details, setDetails] = useState({});
+  const [size, setSize] = useState(130);
+
+  //timer width size
+  const updateSize = () => {
+    const width = window.innerWidth;
+    if (width < 642) {
+      // Mobile devices
+      setSize(80);
+    } else if (width < 770) {
+      // Tablet devices
+      setSize(90);
+    } else {
+      // Laptop/desktop devices
+      setSize(130);
+    }
+  };
+
+  useEffect(() => {
+    updateSize(); // Set initial size
+    window.addEventListener("resize", updateSize); // Update size on resize
+
+    return () => {
+      window.removeEventListener("resize", updateSize); // Cleanup listener
+    };
+  }, []);
 
   const { id } = useParams();
   // for countdown
@@ -43,9 +68,7 @@ const MarathonDetails = (props) => {
 
   useEffect(() => {
     const marathonDetails = async () => {
-      const { data } = await axiosSecure.get(
-        `/marathon/${id}`
-      );
+      const { data } = await axiosSecure.get(`/marathon/${id}`);
       const targetData = new Date(data.marathon_start_date);
       setDetails(data);
 
@@ -78,38 +101,40 @@ const MarathonDetails = (props) => {
 
     if (compareAsc(new Date(), new Date(end_registration_date)) === 1) {
       return toast.error("Registration deadline is expired");
-    } 
-    if(compareAsc( new Date(start_registration_date), new Date()) === 1){
-      return toast.error("Registration has not started yet");
     }
-    else {
+    if (compareAsc(new Date(start_registration_date), new Date()) === 1) {
+      return toast.error("Registration has not started yet");
+    } else {
       navigate(`/registration-from/${_id}`);
     }
   };
 
   const handleBack = () => {
     // navigate(backLocation?.state ? backLocation.state : "/");
-    navigate(backLocation?.state ? backLocation?.state : '/')
-    console.log(backLocation.state)
-  }
+    navigate(backLocation?.state ? backLocation?.state : "/");
+    console.log(backLocation.state);
+  };
 
   return (
-    <div className="w-10/12 mx-auto mt-20">
-      <div className="mb-10 flex justify-between">
-        <button onClick={handleBack} className="bg-secondary-color text-white px-6 py-1 rounded-xl flex items-center">
+    <div className="lg:w-10/12 w-11/12 mx-auto lg:mt-20 md:mt-20 mt-14">
+      <div className="mb-10 flex lg:flex-row md:flex-row lg:justify-between md:justify-between gap-2 flex-col items-start">
+        <button
+          onClick={handleBack}
+          className="bg-secondary-color lg:text-base md:text-base text-sm text-white lg:px-6 md:px-5 px-4 lg:py-1 md:py-1 py-0.5 rounded-xl flex items-center"
+        >
           <FaFastBackward className="mr-2"></FaFastBackward>
           Back
         </button>
-        <div className="bg-primary-color text-white px-6 py-1 rounded-xl flex items-center gap-3">
+        <div className="bg-primary-color g:text-base md:text-base text-sm text-white lg:px-6 md:px-5 px-4 py-1  rounded-xl flex items-center gap-3">
           <p>Total Registration:</p>
           <span>{registration_count}</span>
         </div>
       </div>
-      <div className="space-y-16">
+      <div className="lg:space-y-16 md:space-y-12 space-y-8">
         {/* first part */}
-        <div className="grid grid-cols-5 gap-8">
+        <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-1 lg:gap-8 md:gap-6 gap-4">
           {/* image */}
-          <div className=" col-span-3">
+          <div className="col-span-3">
             <img
               className="h-full w-full rounded-2xl"
               src={marathon_image}
@@ -117,85 +142,93 @@ const MarathonDetails = (props) => {
             />
           </div>
           {/* title, subtitle, button */}
-          <div className="col-span-2 flex flex-col justify-center gap-7">
-            <h3 className="text-5xl font-semibold leading-snug">
+          <div className="col-span-2 flex flex-col justify-center lg:gap-7 md:gap-5 gap-2">
+            <h3 className="lg:text-5xl md:text-3xl text-2xl font-semibold leading-snug">
               {marathon_title}
             </h3>
-            <p className="font-light text-xl">{description}</p>
+            <p className="font-light lg:text-xl md:text-base text-sm">{description}</p>
           </div>
         </div>
 
         {/* second part */}
-        <div className="grid grid-cols-6 gap-14">
-          <div className="col-span-2 flex flex-col justify-center gap-8">
+        <div className="lg:grid lg:grid-cols-6 md:grid md:grid-cols-6 lg:gap-14 md:gap-8">
+          <div className="col-span-2 flex flex-col justify-center lg:gap-8 gap-4">
             {/* running distance */}
-            <div className=" flex flex-col gap-1">
+            <div className=" lg:flex lg:flex-col md:flex md:flex-col lg:gap-1">
               <div className="flex items-center gap-2">
-                <span className="text-white bg-secondary-color font-bold text-xl py-2 px-2 rounded-full">
+                <span className="text-white bg-secondary-color font-bold lg:text-xl py-2 px-2 rounded-full">
                   <MdOutlineSocialDistance></MdOutlineSocialDistance>
                 </span>
-                <p className="font-medium text-2xl">Running Distance </p>
+                <p className="font-medium lg:text-2xl ">
+                  Running Distance{" "}
+                </p>
               </div>
-              <div className="text-center">
-                <span className="">{running_distance}</span>
+              <div className="lg:text-center md:text-center ml-16">
+                <span className="text-xs">{running_distance}</span>
               </div>
             </div>
             {/* location */}
-            <div className=" flex flex-col gap-1">
+            <div className=" lg:flex lg:flex-col md:flex md:flex-col lg:gap-1">
               <div className="flex items-center  gap-2">
-                <span className="text-white bg-secondary-color font-bold text-xl py-2 px-2 rounded-full">
+                <span className="text-white bg-secondary-color font-bold lg:text-xl py-2 px-2 rounded-full">
                   <FaLocationDot></FaLocationDot>
                 </span>
-                <p className="font-medium text-2xl">Location </p>
+                <p className="font-medium lg:text-2xl">Location </p>
               </div>
-              <div className="text-center">
-                <span className="">{location}</span>
+              <div className="lg:text-center md:text-center ml-16">
+                <span className="text-xs">{location}</span>
               </div>
             </div>
 
             {/* registration start date */}
-            <div className=" flex flex-col gap-1">
+            <div className=" lg:flex lg:flex-col md:flex md:flex-col lg:gap-1">
               <div className="flex items-center gap-2">
-                <span className="text-white bg-secondary-color font-bold text-xl py-2 px-2 rounded-full">
+                <span className="text-white bg-secondary-color font-bold lg:text-xl py-2 px-2 rounded-full">
                   <FaCalendarAlt></FaCalendarAlt>
                 </span>
-                <p className="font-medium text-xl">Registration start date </p>
+                <p className="font-medium lg:text-2xl">
+                  Registration start date{" "}
+                </p>
               </div>
-              <div className="text-center">
-              {start_registration_date && (
-                  <span className="">
+              <div className="lg:text-center md:text-center ml-16">
+                {start_registration_date && (
+                  <span className="text-xs">
                     {format(new Date(start_registration_date), "PPPP")}
                   </span>
                 )}
               </div>
             </div>
             {/* registration end date */}
-            <div className=" flex flex-col gap-1">
+            <div className=" lg:flex lg:flex-col md:flex md:flex-col lg:gap-1">
               <div className="flex items-center gap-2">
-                <span className="text-white bg-secondary-color font-bold text-xl py-2 px-2 rounded-full">
+                <span className="text-white bg-secondary-color font-bold lg:text-xl py-2 px-2 rounded-full">
                   <FaCalendarAlt></FaCalendarAlt>
                 </span>
-                <p className="font-medium text-xl">Registration deadline </p>
+                <p className="font-medium lg:text-2xl">
+                  Registration deadline{" "}
+                </p>
               </div>
-              <div className="text-center">
-              {end_registration_date && (
-                  <span className="">
+              <div className="lg:text-center md:text-center ml-16">
+                {end_registration_date && (
+                  <span className="text-xs">
                     {format(new Date(end_registration_date), "PPPP")}
                   </span>
                 )}
               </div>
             </div>
             {/* Competition start date */}
-            <div className=" flex flex-col gap-1">
+            <div className=" lg:flex lg:flex-col md:flex md:flex-col lg:gap-1">
               <div className="flex items-center gap-2">
-                <span className="text-white bg-secondary-color font-bold text-xl py-2 px-2 rounded-full">
+                <span className="text-white bg-secondary-color font-bold lg:text-xl py-2 px-2 rounded-full">
                   <FaCalendarAlt></FaCalendarAlt>
                 </span>
-                <p className="font-medium text-xl">Marathon start date </p>
+                <p className="font-medium lg:text-2xl">
+                  Marathon start date{" "}
+                </p>
               </div>
-              <div className="text-center">
+              <div className="lg:text-center md:text-center ml-16">
                 {marathon_start_date && (
-                  <span className="">
+                  <span className="text-xs">
                     {format(new Date(marathon_start_date), "PPPP")}
                   </span>
                 )}
@@ -204,30 +237,31 @@ const MarathonDetails = (props) => {
           </div>
 
           {/* countdown timer part */}
-          <div className="col-span-4 flex flex-col justify-center items-center gap-10">
+          <div className="mt-8 lg:mt-0 md:mt-0 col-span-4 flex flex-col justify-center items-center lg:gap-10 md:gap-10 gap-6">
             <div>
-              <p className="text-5xl text-primary-color font-semibold">
+              <p className="lg:text-5xl md:text-3xl text-2xl text-primary-color font-semibold">
                 Marathon is yet to begin
               </p>
             </div>
 
             {/* countdown timer */}
-            <div className="flex flex-col gap-20">
-              <div className="flex justify-center space-x-4">
+            <div className="flex flex-col lg:gap-20 md:gap-20 gap-10">
+              <div className="flex justify-center lg:space-x-4 space-x-3">
                 <div className="flex flex-col items-center">
                   <CountdownCircleTimer
                     isPlaying
                     duration={timeLeft.days * 24 * 3600}
-                    size={130}
+                    size={size}
                     colors={[
                       ["#004777", 0.33],
                       ["#F7B801", 0.33],
                       ["#A30000", 0.33],
                     ]}
+                    strokeWidth={10}
                     onComplete={() => console.log("Days up")}
                   >
                     {() => (
-                      <div className="text-4xl font-semibold">
+                      <div className="lg:text-4xl md:text-3xl text-2xl font-semibold">
                         {timeLeft.days}
                       </div>
                     )}
@@ -235,20 +269,21 @@ const MarathonDetails = (props) => {
                   <span className="text-sm">Days</span>
                 </div>
 
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ">
                   <CountdownCircleTimer
                     isPlaying
                     duration={timeLeft.hours * 3600}
-                    size={130}
+                    size={size}
                     colors={[
                       ["#004777", 0.33],
                       ["#F7B801", 0.33],
                       ["#A30000", 0.33],
                     ]}
+                    strokeWidth={10}
                     onComplete={() => console.log("Hours up")}
                   >
                     {() => (
-                      <div className="text-4xl font-semibold">
+                      <div className="lg:text-4xl md:text-3xl text-2xl font-semibold">
                         {timeLeft.hours}
                       </div>
                     )}
@@ -256,20 +291,21 @@ const MarathonDetails = (props) => {
                   <span className="text-sm">Hours</span>
                 </div>
 
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ">
                   <CountdownCircleTimer
                     isPlaying
                     duration={timeLeft.minutes * 60}
-                    size={130}
+                    size={size}
                     colors={[
                       ["#004777", 0.33],
                       ["#F7B801", 0.33],
                       ["#A30000", 0.33],
                     ]}
+                    strokeWidth={10}
                     onComplete={() => console.log("Minutes up")}
                   >
                     {() => (
-                      <div className="text-4xl font-semibold">
+                      <div className="lg:text-4xl md:text-3xl text-2xl font-semibold">
                         {timeLeft.minutes}
                       </div>
                     )}
@@ -277,20 +313,21 @@ const MarathonDetails = (props) => {
                   <span className="text-sm">Minutes</span>
                 </div>
 
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ">
                   <CountdownCircleTimer
                     isPlaying
                     duration={timeLeft.seconds}
-                    size={130}
+                    size={size}
                     colors={[
                       ["#004777", 0.33],
                       ["#F7B801", 0.33],
                       ["#A30000", 0.33],
                     ]}
+                    strokeWidth={10}
                     onComplete={() => console.log("Seconds up")}
                   >
                     {() => (
-                      <div className="text-4xl font-semibold">
+                      <div className="lg:text-4xl md:text-3xl text-2xl font-semibold">
                         {timeLeft.seconds}
                       </div>
                     )}
@@ -301,7 +338,7 @@ const MarathonDetails = (props) => {
               <div className="flex flex-row-reverse">
                 <button
                   onClick={handleRegister}
-                  className="bg-primary-color text-white px-10 py-2.5 rounded-xl"
+                  className="bg-primary-color text-white lg:px-10 lg:py-2.5 md:px-10 md:py-2.5 py-1.5 px-6 rounded-xl"
                 >
                   Register
                 </button>

@@ -109,7 +109,7 @@ const MyApplyList = (props) => {
   return (
     <div>
       {/* search field */}
-      <fieldset className="w-full space-y-1 flex flex-row-reverse pr-6">
+      <fieldset className="w-full mb-2 lg:mb-0 md:mb-0 mt-8 lg:mt-0 md:mt-0 space-y-1 flex flex-row-reverse pr-6">
         <label htmlFor="Search" className="hidden">
           Search
         </label>
@@ -140,7 +140,7 @@ const MyApplyList = (props) => {
         </div>
       </fieldset>
       {/* search field end */}
-      <div className="container p-2 mx-auto sm:p-4 text-gray-800">
+      <div className="container lg:p-2 md:p-2 mx-auto sm:p-4 text-gray-800">
         <h2 className="mb-4 lg:text-2xl md:text-2xl text-xl border-b-4 font-semibold leading-tight">
           Total Application: {myData.length}
         </h2>
@@ -158,7 +158,7 @@ const MyApplyList = (props) => {
             <thead className="bg-gray-300">
               <tr className="text-left">
                 <th className="p-3">Title</th>
-                <th className="p-3">Applicant's Name</th>
+                <th className="p-3 hidden lg:block md:block">Applicant's Name</th>
                 <th className="p-3">Applicant's Address</th>
                 <th className="p-3">Contact Number</th>
                 <th className="p-3">Marathon Start Date</th>
@@ -175,13 +175,13 @@ const MyApplyList = (props) => {
                   <td className="p-3">
                     <p>{data.marathon_title}</p>
                   </td>
-                  <td className="p-3">
+                  <td className="p-3 hidden lg:block md:block">
                     <p>
                       {data.applicant.userFirstName}{" "}
                       {data.applicant.userLastName}
                     </p>
                   </td>
-                  <td className="p-3">
+                  <td className="p-3 ">
                     <p>{data.applicant.userAddress}</p>
                   </td>
                   <td className="p-3">
@@ -190,8 +190,8 @@ const MyApplyList = (props) => {
                   <td className="p-3">
                     <p>{format(new Date(data.marathon_start_date), "PPP")}</p>
                   </td>
-                  <td className="md:flex lg:mt-1 md:mt-3 gap-1 ">
-                    <td className="lg:pl-6 md:pl-2 text-left tooltip" data-tip="Update">
+                  <td className="flex md:flex-row lg:flex-row flex-col items-center lg:mt-1 md:mt-3 mt-2 gap-1">
+                    <td className="lg:pl-6 md:pl-2 pl-0 text-left tooltip" data-tip="Update">
                       <button
                         onClick={() => {
                           setModalData(data);
@@ -202,7 +202,7 @@ const MyApplyList = (props) => {
                       </button>
                       {/* <UpdateRegistration id={data._id} fetchAllApplicationData={fetchAllApplicationData}></UpdateRegistration> */}
                     </td>
-                    <td className="lg:pl-4 pl-2 text-right tooltip" data-tip="Delete">
+                    <td className="lg:pl-4 md:pl-2 pl-0 text-right tooltip" data-tip="Delete">
                       <Link onClick={() => confirmationDelete(data._id)}>
                         <FaDeleteLeft className=" text-secondary-color lg:text-3xl text-2xl"></FaDeleteLeft>
                       </Link>
