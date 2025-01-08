@@ -54,7 +54,7 @@ const RegistrationForm = (props) => {
 
     try {
       // 1. make a post request
-      await axiosSecure.post(
+      const {status} = await axiosSecure.post(
         `/add-registered-marathon`,
         registrationData
       )

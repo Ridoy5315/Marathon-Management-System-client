@@ -71,7 +71,7 @@ const Marathons = (props) => {
           near you. Find your race, set your pace, and start your journey today!
         </p>
       </div>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 mt-10 pb-6 overflow-hidden">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 lg:mt-10 md:mt-10 mt-6 pb-6 overflow-hidden">
         {marathons.map((marathon, i) => (
           <motion.div
             key={marathon._id}

@@ -70,11 +70,11 @@ const MyMarathonList = (props) => {
   };
 
   const handleData = (data) => {
-    setModalData(data)
-    setStartDate(data?.marathon_start_date)
-    setStartRegistrationDate(data?.start_registration_date)
-    setEndRegistrationDate(data?.end_registration_date)
-  }
+    setModalData(data);
+    setStartDate(data?.marathon_start_date);
+    setStartRegistrationDate(data?.start_registration_date);
+    setEndRegistrationDate(data?.end_registration_date);
+  };
 
   // update data
   const handleUpdate = async (e) => {
@@ -113,14 +113,11 @@ const MyMarathonList = (props) => {
     }
   };
 
-  
-    
-  
   return (
     <div>
-      <div className="container p-2 mx-auto sm:p-4 text-gray-800">
-        <h2 className="mb-4 text-2xl border-b-4 font-semibold leading-tight">
-          Total Application: {myData.length}
+      <div className="container p-2 mx-auto text-gray-800">
+        <h2 className="mb-4 lg:text-2xl md:text-2xl text-xl border-b-4 font-semibold leading-tight">
+          Total Marathons: {myData.length}
         </h2>
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs">
@@ -131,7 +128,7 @@ const MyMarathonList = (props) => {
               <col />
               <col />
               <col />
-              <col className="w-24" />
+              <col />
             </colgroup>
             <thead className="bg-gray-300">
               <tr className="text-left">
@@ -167,21 +164,28 @@ const MyMarathonList = (props) => {
                       {format(new Date(data?.end_registration_date), "PPP")}
                     </p>
                   </td>
-                  <td className="pl-6 text-left tooltip" data-tip="Update">
-                    <button
-                      onClick={() => {
-                        handleData(data);
-                        document.getElementById("my_modal_1").showModal();
-                      }}
+                  <td className="md:flex lg:mt-1 md:mt-3 gap-1">
+                    <td
+                      className="lg:pl-6 md:pl-2 text-left tooltip"
+                      data-tip="Update"
                     >
-                      <GrUpdate className="bg-primary-color py-1.5 px-1.5 rounded-full text-white text-[28px]"></GrUpdate>
-                    </button>
-                    {/* <UpdateMarathon id={data._id} fetchAllMarathonList={fetchAllMarathonList}></UpdateMarathon> */}
-                  </td>
-                  <td className="pl-4 text-right tooltip" data-tip="Delete">
-                    <Link onClick={() => confirmationDelete(data._id)}>
-                      <FaDeleteLeft className=" text-secondary-color text-3xl"></FaDeleteLeft>
-                    </Link>
+                      <button
+                        onClick={() => {
+                          handleData(data);
+                          document.getElementById("my_modal_1").showModal();
+                        }}
+                      >
+                        <GrUpdate className="bg-primary-color lg:py-1.5 lg:px-1.5 py-1 px-1 rounded-full text-white lg:text-[28px] text-[20px]"></GrUpdate>
+                      </button>
+                    </td>
+                    <td
+                      className="lg:pl-4 pl-2 text-right tooltip"
+                      data-tip="Delete"
+                    >
+                      <Link onClick={() => confirmationDelete(data._id)}>
+                        <FaDeleteLeft className=" text-secondary-color lg:text-3xl text-2xl"></FaDeleteLeft>
+                      </Link>
+                    </td>
                   </td>
                 </tr>
               ))}
@@ -200,12 +204,12 @@ const MyMarathonList = (props) => {
                   action=""
                   className="container flex flex-col mx-auto"
                 >
-                  <fieldset className="grid grid-cols-5 gap-8 rounded-md">
-                    <div className="col-span-full space-y-6">
+                  <fieldset className="grid grid-cols-5 lg:gap-8 md:gap-8 gap-4 rounded-md">
+                    <div className="col-span-full lg:space-y-6 md:space-y-6 space-y-4">
                       {/* row one */}
-                      <div className="grid grid-cols-2 gap-5">
+                      <div className="grid grid-cols-2 lg:gap-5 md:gap-5 gap-3">
                         <div className="">
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Title
                           </label>
                           <input
@@ -213,11 +217,11 @@ const MyMarathonList = (props) => {
                             name="title"
                             placeholder="Title"
                             defaultValue={modalData?.marathon_title}
-                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                            className="w-full rounded-md lg:text-base md:text-base text-sm focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                           />
                         </div>
                         <div className="">
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Location
                           </label>
                           <input
@@ -225,14 +229,14 @@ const MyMarathonList = (props) => {
                             name="location"
                             placeholder="Location"
                             defaultValue={modalData?.location}
-                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                            className="w-full rounded-md lg:text-base md:text-base text-sm focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                           />
                         </div>
                       </div>
                       {/* second row */}
                       <div className="">
                         <div>
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Photo
                           </label>
                           <input
@@ -240,14 +244,14 @@ const MyMarathonList = (props) => {
                             name="image"
                             placeholder="Photo URL"
                             defaultValue={modalData?.marathon_image}
-                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                            className="w-full rounded-md lg:text-base md:text-base text-sm focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                           />
                         </div>
                       </div>
                       {/* third row */}
                       <div>
                         <div className="">
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Description
                           </label>
                           <input
@@ -255,23 +259,23 @@ const MyMarathonList = (props) => {
                             name="description"
                             placeholder="Description"
                             defaultValue={modalData?.description}
-                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                            className="w-full rounded-md lg:text-base md:text-base text-sm focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                           />
                         </div>
                       </div>
 
                       {/* forth row */}
-                      <div className="grid grid-cols-2 gap-6">
+                      <div className="grid grid-cols-2 lg:gap-5 md:gap-5 gap-3">
                         <div className="flex flex-col gap-1">
                           <label
-                            className="text-primary-color"
+                            className="text-primary-color lg:text-base md:text-base text-sm"
                             htmlFor="category"
                           >
                             Running distance
                           </label>
                           <select
                             name="distance"
-                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                            className="w-full rounded-md lg:text-base md:text-base text-sm focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
                           >
                             <option value="Choose one">
                               {modalData?.running_distance}
@@ -283,13 +287,13 @@ const MyMarathonList = (props) => {
                         </div>
                         {modalData?.marathon_start_date && (
                           <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-primary-color">
+                            <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                               Marathon Start Date
                             </label>
 
                             {/* Date Picker Input Field */}
                             <DatePicker
-                              className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                              className="w-full rounded-md lg:text-base md:text-base text-sm focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
                               selected={startDate}
                               onChange={(date) => setStartDate(date)}
                             />
@@ -298,28 +302,28 @@ const MyMarathonList = (props) => {
                       </div>
 
                       {/* row five */}
-                      <div className="grid grid-cols-2 gap-5">
+                      <div className="grid grid-cols-2 lg:gap-5 md:gap-5 gap-3">
                         <div className="flex flex-col gap-1">
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Start Registration date
                           </label>
 
                           {/* Date Picker Input Field */}
                           <DatePicker
-                            className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                            className="w-full rounded-md lg:text-base md:text-base text-sm focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
                             selected={startRegistrationDate}
                             onChange={(date) => setStartRegistrationDate(date)}
                           />
                         </div>
 
                         <div className="flex flex-col gap-1">
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Registration Deadline
                           </label>
 
                           {/* Date Picker Input Field */}
                           <DatePicker
-                            className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                            className="w-full rounded-md lg:text-base md:text-base text-sm focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
                             selected={endRegistrationDate}
                             onChange={(date) => setEndRegistrationDate(date)}
                           />
@@ -334,13 +338,13 @@ const MyMarathonList = (props) => {
                               method="dialog"
                               className="flex flex-row-reverse"
                             >
-                              <button className="transition-colors duration-300 transhtmlForm border border-secondary-color px-4 hover:border-[#f4d6d6] hover:bg-[#f4d6d6] text-secondary-color py-1 rounded-md font-semibold">
+                              <button className="transition-colors lg:text-base md:text-base text-sm duration-300 transhtmlForm border border-secondary-color px-4 hover:border-[#f4d6d6] hover:bg-[#f4d6d6] text-secondary-color py-1 rounded-md font-semibold">
                                 Cancel
                               </button>
                             </form>
                           </div>
                           <div className=" modal-action">
-                            <button className="transition-colors duration-300 transhtmlForm border border-primary-color px-4 hover:border-[#c2c9d8] hover:bg-[#c2c9d8] text-primary-color py-1 rounded-md font-semibold">
+                            <button className="transition-colors lg:text-base md:text-base text-sm duration-300 transhtmlForm border border-primary-color px-4 hover:border-[#c2c9d8] hover:bg-[#c2c9d8] text-primary-color py-1 rounded-md font-semibold">
                               Update
                             </button>
                           </div>

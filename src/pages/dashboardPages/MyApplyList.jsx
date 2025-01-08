@@ -11,14 +11,13 @@ import toast from "react-hot-toast";
 
 const MyApplyList = (props) => {
   const axiosSecure = useAxiosSecure();
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("");
   console.log(search);
   const { user } = useAuth();
   const [myData, setMyData] = useState([]);
   const [modalData, setModalData] = useState({});
 
   useEffect(() => {
-    
     fetchAllApplicationData();
   }, [search]);
 
@@ -134,15 +133,15 @@ const MyApplyList = (props) => {
             type="text"
             name="Search"
             placeholder="Search..."
-            onChange={e => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
             value={search}
-            className="w-32 py-3 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-gray-200 text-gray-800 focus:bg-gray-50"
+            className="w-32 lg:py-3 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-gray-200 text-gray-800 focus:bg-gray-50"
           />
         </div>
       </fieldset>
       {/* search field end */}
       <div className="container p-2 mx-auto sm:p-4 text-gray-800">
-        <h2 className="mb-4 text-2xl border-b-4 font-semibold leading-tight">
+        <h2 className="mb-4 lg:text-2xl md:text-2xl text-xl border-b-4 font-semibold leading-tight">
           Total Application: {myData.length}
         </h2>
         <div className="overflow-x-auto">
@@ -154,7 +153,7 @@ const MyApplyList = (props) => {
               <col />
               <col />
               <col />
-              <col className="w-24" />
+              <col />
             </colgroup>
             <thead className="bg-gray-300">
               <tr className="text-left">
@@ -191,21 +190,23 @@ const MyApplyList = (props) => {
                   <td className="p-3">
                     <p>{format(new Date(data.marathon_start_date), "PPP")}</p>
                   </td>
-                  <td className="pl-6 text-left tooltip" data-tip="Update">
-                    <button
-                      onClick={() => {
-                        setModalData(data);
-                        document.getElementById("my_modal_1").showModal();
-                      }}
-                    >
-                      <GrUpdate className="bg-primary-color py-1.5 px-1.5 rounded-full text-white text-[28px]"></GrUpdate>
-                    </button>
-                    {/* <UpdateRegistration id={data._id} fetchAllApplicationData={fetchAllApplicationData}></UpdateRegistration> */}
-                  </td>
-                  <td className="pl-4 text-right tooltip" data-tip="Delete">
-                    <Link onClick={() => confirmationDelete(data._id)}>
-                      <FaDeleteLeft className=" text-secondary-color text-3xl"></FaDeleteLeft>
-                    </Link>
+                  <td className="md:flex lg:mt-1 md:mt-3 gap-1 ">
+                    <td className="lg:pl-6 md:pl-2 text-left tooltip" data-tip="Update">
+                      <button
+                        onClick={() => {
+                          setModalData(data);
+                          document.getElementById("my_modal_1").showModal();
+                        }}
+                      >
+                        <GrUpdate className="bg-primary-color lg:py-1.5 lg:px-1.5 py-1 px-1 rounded-full text-white lg:text-[28px] text-[20px]"></GrUpdate>
+                      </button>
+                      {/* <UpdateRegistration id={data._id} fetchAllApplicationData={fetchAllApplicationData}></UpdateRegistration> */}
+                    </td>
+                    <td className="lg:pl-4 pl-2 text-right tooltip" data-tip="Delete">
+                      <Link onClick={() => confirmationDelete(data._id)}>
+                        <FaDeleteLeft className=" text-secondary-color lg:text-3xl text-2xl"></FaDeleteLeft>
+                      </Link>
+                    </td>
                   </td>
                 </tr>
               ))}
@@ -227,12 +228,12 @@ const MyApplyList = (props) => {
                   action=""
                   className="container flex flex-col mx-auto"
                 >
-                  <fieldset className="grid grid-cols-5 gap-8 rounded-md">
-                    <div className="col-span-full space-y-6">
+                  <fieldset className="grid grid-cols-5 lg:gap-8 md:gap-8 gap-4 rounded-md">
+                    <div className="col-span-full lg:space-y-6 md:space-y-6 space-y-4">
                       {/* row one */}
-                      <div className="grid grid-cols-2 gap-5">
+                      <div className="grid grid-cols-2 lg:gap-5 md:gap-5 gap-3">
                         <div className="">
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             First Name
                           </label>
                           <input
@@ -240,11 +241,11 @@ const MyApplyList = (props) => {
                             name="firstName"
                             placeholder="First Name"
                             defaultValue={modalData?.applicant?.userFirstName}
-                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                            className="w-full lg:text-base md:text-base text-sm rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                           />
                         </div>
                         <div className="">
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Last Name
                           </label>
                           <input
@@ -252,14 +253,14 @@ const MyApplyList = (props) => {
                             name="lastName"
                             placeholder="Last Name"
                             defaultValue={modalData?.applicant?.userLastName}
-                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                            className="w-full rounded-md lg:text-base md:text-base text-sm focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                           />
                         </div>
                       </div>
                       {/* second row */}
-                      <div className="grid grid-cols-2 gap-5 ">
+                      <div className="grid grid-cols-2 lg:gap-5 md:gap-5 gap-3 ">
                         <div>
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Email
                           </label>
                           <input
@@ -268,11 +269,11 @@ const MyApplyList = (props) => {
                             placeholder="Email"
                             defaultValue={user?.email}
                             disabled
-                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                            className="w-full lg:text-base md:text-base text-sm rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                           />
                         </div>
                         <div className="">
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Contact Number
                           </label>
                           <input
@@ -282,14 +283,14 @@ const MyApplyList = (props) => {
                             defaultValue={
                               modalData?.applicant?.userContactNumber
                             }
-                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                            className="w-full lg:text-base md:text-base text-sm rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                           />
                         </div>
                       </div>
 
                       {/* third row */}
                       <div className="col-span-full sm:col-span-3">
-                        <label className="font-semibold text-primary-color">
+                        <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                           Address
                         </label>
                         <input
@@ -297,14 +298,14 @@ const MyApplyList = (props) => {
                           name="address"
                           placeholder="Your address"
                           defaultValue={modalData?.applicant?.userAddress}
-                          className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                          className="w-full lg:text-base md:text-base text-sm rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
                         />
                       </div>
 
                       {/* row four */}
-                      <div className="grid grid-cols-2 gap-5">
+                      <div className="grid grid-cols-2 lg:gap-5 md:gap-5 gap-3">
                         <div className="">
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Title
                           </label>
                           <input
@@ -313,17 +314,17 @@ const MyApplyList = (props) => {
                             placeholder="Title"
                             defaultValue={modalData.marathon_title}
                             disabled
-                            className="w-full rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
+                            className="w-full lg:text-base md:text-base text-sm rounded-md focus:ring px-2 py-1 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]"
                           />
                         </div>
                         <div className="flex flex-col gap-1">
-                          <label className="font-semibold text-primary-color">
+                          <label className="font-semibold lg:text-base md:text-base text-sm text-primary-color">
                             Marathon Start Date
                           </label>
 
                           {/* Date Picker Input Field */}
                           <DatePicker
-                            className="w-full rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
+                            className="w-full lg:text-base md:text-base text-sm rounded-md focus:ring px-2 py-0.5 text-gray-700 focus:ring-[#a8afc0] border-2 border-[#a8afc0]]"
                             selected={modalData.marathon_start_date}
                             disabled
                             // onChange={(date) => setMarathonStartDate(date)}

@@ -14,7 +14,7 @@ const MarathonCard = ({ marathon }) => {
     _id,
   } = marathon || {};
   return (
-    <div className="rounded-xl shadow-lg shadow-blue-800/20 hover:shadow-rose-500/20 transform transition-transform duration-300 hover:scale-105">
+    <div className="rounded-xl lg:shadow-lg md:shadow-lg shadow-md shadow-blue-800/20 hover:shadow-rose-500/20 transform transition-transform duration-300 hover:scale-105">
       <div className="lg:h-56 md:h-48 w-full ">
         <img
           className="w-full h-full rounded-t-xl"
@@ -22,7 +22,7 @@ const MarathonCard = ({ marathon }) => {
           alt=""
         />
       </div>
-      <div className="lg:p-6 md:p-4 space-y-2 ">
+      <div className="lg:p-6 md:p-4 p-3 space-y-2 ">
         <h4 className="font-semibold text-xl">{marathon_title}</h4>
         <p className="font-light text-sm">
           Location: <span className="text-base font-medium">{location}</span>
@@ -50,7 +50,7 @@ const MarathonCard = ({ marathon }) => {
         <div className="flex justify-end ">
           <Link
             to={`/marathon-details/${_id}`} state={backLocation.pathname}
-            className="bg-primary-color text-white py-1 px-6 rounded-xl"
+            className="bg-primary-color lg:text-base text-sm text-white py-1 lg:px-6 px-4 rounded-xl"
           >
             See Details
           </Link>

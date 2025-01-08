@@ -98,16 +98,16 @@ const AddMarathon = (props) => {
 
   return (
     <div>
-      <section className="p-6 text-gray-600">
+      <section className="lg:p-6 md:p-6 text-gray-600">
         <form
           onSubmit={handleSubmit}
           noValidate=""
           action=""
           className="container flex flex-col mx-auto space-y-12"
         >
-          <fieldset className="grid grid-cols-5 gap-4 px-8 rounded-md">
-            <div className="flex justify-center items-center col-span-2 overflow-hidden">
-              <p className="font-semibold text-primary-color text-4xl leading-relaxed">
+          <fieldset className="grid lg:grid-cols-5 grid-cols-1 gap-4 lg:px-8 md:px-8 rounded-md">
+            <div className="flex justify-center items-center lg:col-span-2 overflow-hidden">
+              <p className="font-semibold text-primary-color lg:text-4xl md:text-3xl text-xl text-center lg:text-left leading-relaxed lg:mt-0 md:mt-6 mt-12">
                 <Typewriter
                   words={[
                     "Revolutionize Your Marathon Planning with Ease and Efficiency!",
@@ -117,7 +117,7 @@ const AddMarathon = (props) => {
                 ></Typewriter>
               </p>
             </div>
-            <div className="col-span-3 space-y-7">
+            <div className="lg:col-span-3 lg:space-y-7 md:space-y-7 space-y-4">
               {/* row one */}
               <div className="grid grid-cols-2 gap-5">
                 <div className="">
