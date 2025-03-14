@@ -9,7 +9,7 @@ const NextMarathon = (props) => {
       style={{ backgroundImage: `url(${winning})` }}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-[#5E5D5D]/70 to-[#5E5D5D]/70 "></div>
-      <Countdown targetDate="2025-01-15T00:00:00"></Countdown>
+      <Countdown targetDate="2025-02-10T00:00:00"></Countdown>
     </div>
   );
 };

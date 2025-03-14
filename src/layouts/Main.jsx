@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 const Main = (props) => {
   return (
     <div>
-      <section className="w-11/12 mx-auto mt-4">
+      <section className="w-full fixed z-10 shadow-lg bg-white">
         <Navbar></Navbar>
       </section>
       <section className='min-h-[calc(100vh-345px)]'>

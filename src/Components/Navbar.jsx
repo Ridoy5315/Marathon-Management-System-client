@@ -90,48 +90,8 @@ const Navbar = (props) => {
       </ul>
     </nav>
   );
-  // const links = (
-  //   <nav className="flex gap-2">
-  //     <Link to='/home'
-  //       onClick={() => setActiveLink("home")}
-  //       className={`py-1 px-3 rounded-md ${
-  //         activeLink === "home"
-  //           ? "bg-primary-color text-white"
-  //           : "text-primary-color font-semibold hover:bg-gray-200 "
-  //       }`}
-  //     >
-  //       Home
-  //     </Link>
-  //     <Link
-  //       to="/marathons"
-  //       onClick={() => setActiveLink("Marathons")}
-  //       className={`py-1 px-3 rounded-md ${
-  //         activeLink === "Marathons"
-  //           ? "bg-primary-color text-white"
-  //           : "text-primary-color font-semibold hover:bg-gray-200"
-  //       }`}
-  //     >
-  //       Marathons
-  //     </Link>
-  //     {user ? (
-  //       <Link
-  //         to="/dashboard"
-  //         onClick={() => setActiveLink("Dashboard")}
-  //         className={`py-1 px-3 rounded-md ${
-  //           activeLink === "Dashboard"
-  //             ? "bg-primary-color text-white"
-  //             : "text-primary-color font-semibold hover:bg-gray-200"
-  //         }`}
-  //       >
-  //         Dashboard
-  //       </Link>
-  //     ) : (
-  //       ""
-  //     )}
-  //   </nav>
-  // );
   return (
-    <div className="navbar lg:my-4 md:my-3 bg-base-100 font-fontHeading">
+    <div className="navbar w-11/12 mx-auto lg:py-3 md:py-2 bg-base-100 font-fontHeading">
       <div className="navbar-start justify-between lg:justify-start">
         <div className="dropdown mr-8">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -173,7 +133,7 @@ const Navbar = (props) => {
         </div>
       </div>
       <div className="navbar-end flex lg:gap-6 md:gap-6 gap-3">
-        <ul className="menu menu-horizontal lg:block md:hidden hidden  text-base text-primary-color ">
+        <ul className="menu menu-horizontal lg:block md:hidden hidden text-base text-primary-color ">
           {links}
         </ul>
         {/* divider */}
@@ -187,17 +147,17 @@ const Navbar = (props) => {
             </div>
             <button
               onClick={handleLogOut}
-              className="lg:py-2 lg:px-4 md:py-2 md:px-4 py-1 px-3 rounded bg-primary-color text-white hover:bg-secondary-color"
+              className="lg:py-2 lg:px-4 md:py-1.5 md:px-4 py-1 px-3 text-sm lg:text-base md:text-base rounded bg-primary-color text-white hover:bg-secondary-color"
             >
               Logout
             </button>
           </div>
         ) : (
-          <div className="flex gap-3">
+          <div className="flex gap-2 lg:gap-3 md:gap-3">
             <Link
               to="/login"
               onClick={() => setActiveButton("Login")}
-              className={`lg:py-2 lg:px-4 md:py-2 md:px-4 py-1 px-3 rounded ${
+              className={`lg:py-2 lg:px-4 md:py-1.5 md:px-4 py-1 px-3 text-sm lg:text-base md:text-base rounded ${
                 activeButton === "Login"
                   ? "bg-primary-color text-white"
                   : "text-primary-color border border-primary-color hover:border-secondary-color font-bold hover:bg-secondary-color hover:text-white"
@@ -208,7 +168,7 @@ const Navbar = (props) => {
             <Link
               to="/registration"
               onClick={() => setActiveButton("Register")}
-              className={`lg:py-2 lg:px-4 md:py-2 md:px-4 py-1 px-3 rounded ${
+              className={`lg:py-2 lg:px-4 md:py-1.5 md:px-4 py-1 px-3 text-sm lg:text-base md:text-base rounded ${
                 activeButton === "Register"
                   ? "bg-primary-color text-white"
                   : "text-primary-color border border-primary-color hover:border-secondary-color font-bold hover:bg-secondary-color hover:text-white"

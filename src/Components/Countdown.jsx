@@ -38,7 +38,7 @@ const Countdown = ({ targetDate }) => {
       <div className="lg:space-y-6 md:space-y-3 space-y-2">
         <h4 className="lg:text-3xl md:text-2xl text-xl font-semibold">Next Event</h4>
 
-        <p className="text-[#e2e0e0] lg:text-lg md:text-base text-xs">JAN 25, 2025</p>
+        <p className="text-[#e2e0e0] lg:text-lg md:text-base text-xs">FEB 25, 2025</p>
 
         <h2 className="lg:text-6xl md:text-5xl text-3xl font-semibold">EARTH DAY ECO RUN</h2>
         <p className="text-[#e2e0e0] lg:text-2xl md:text-xl font-semibold">
