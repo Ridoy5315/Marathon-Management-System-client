@@ -116,7 +116,7 @@ const MarathonDetails = (props) => {
   };
 
   return (
-    <div className="lg:w-10/12 w-11/12 mx-auto lg:mt-20 md:mt-20 mt-14">
+    <div className="lg:w-10/12 w-11/12 mx-auto lg:pt-28 md:pt-24 pt-20">
       <div className="mb-10 flex lg:flex-row md:flex-row lg:justify-between md:justify-between gap-2 flex-col items-start">
         <button
           onClick={handleBack}

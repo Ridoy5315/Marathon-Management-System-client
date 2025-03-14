@@ -124,7 +124,7 @@ const Register = (props) => {
     });
   };
   return (
-    <div className="w-10/12 mx-auto my-20 grid grid-cols-2 gap-16">
+    <div className="w-10/12 mx-auto pt-36 grid grid-cols-2 gap-16">
       {/* login area */}
       <div className="flex  flex-col justify-center items-center text-current">
         <div className="">

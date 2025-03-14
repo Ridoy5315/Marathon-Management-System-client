@@ -35,7 +35,7 @@ const Marathons = (props) => {
     return () => clearTimeout(timer); // Cleanup timer on component unmount
   }, []);
   return (
-    <div className="lg:w-10/12 w-11/12 mx-auto mt-16">
+    <div className="lg:w-10/12 w-11/12 mx-auto pt-32">
       <div className="flex flex-row-reverse mb-6">
         <button
           onClick={() => setSort("sort")}

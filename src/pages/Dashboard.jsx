@@ -5,7 +5,7 @@ import { NavLink, Outlet } from "react-router-dom";
 const Dashboard = (props) => {
 
   return (
-    <div className="grid lg:grid-cols-5 grid-cols-1 lg:mx-6 md:mx-6 mx-3 mt-14">
+    <div className="grid lg:grid-cols-5 grid-cols-1 lg:mx-6 md:mx-6 mx-3 pt-32">
       <nav className="lg:col-span-1 lg:mb-0 mb-4">
         <ul className="flex lg:flex-col justify-center lg:justify-between items-center lg:gap-3 md:gap-3 gap-1">
           <li>

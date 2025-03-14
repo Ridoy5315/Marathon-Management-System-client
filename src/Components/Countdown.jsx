@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { format } from "date-fns";
 
-const Countdown = ({ targetDate }) => {
+const Countdown = ({ nextMarathon }) => {
+  const targetDate = new Date(nextMarathon.nextRegistrationStartDate);
   const timeLeft = () => {
     const difference = new Date(targetDate) - new Date();
     if (difference > 0) {
@@ -23,7 +25,7 @@ const Countdown = ({ targetDate }) => {
       setLeft(timeLeft());
     }, 1000);
 
-    return () => clearInterval(timer); 
+    return () => clearInterval(timer);
   }, [targetDate]);
 
   if (!left) {
@@ -36,13 +38,18 @@ const Countdown = ({ targetDate }) => {
   return (
     <div className="text-center relative z-10 text-white lg:pt-12 md:pt-8 pt-6 lg:space-y-14 md:space-y-8 space-y-6">
       <div className="lg:space-y-6 md:space-y-3 space-y-2">
-        <h4 className="lg:text-3xl md:text-2xl text-xl font-semibold">Next Event</h4>
+        <h4 className="lg:text-3xl md:text-2xl text-xl font-semibold">
+          Next Event
+        </h4>
+        <p className="text-[#e2e0e0] lg:text-lg md:text-base text-xs">
+          {format(new Date(nextMarathon.nextRegistrationStartDate), "PPPP")}
+        </p>
 
-        <p className="text-[#e2e0e0] lg:text-lg md:text-base text-xs">FEB 25, 2025</p>
-
-        <h2 className="lg:text-6xl md:text-5xl text-3xl font-semibold">EARTH DAY ECO RUN</h2>
+        <h2 className="lg:text-6xl md:text-5xl text-3xl font-semibold">
+          {nextMarathon.marathonName}
+        </h2>
         <p className="text-[#e2e0e0] lg:text-2xl md:text-xl font-semibold">
-          Registration Time Remaining
+          Get Ready! Registration Starts In:
         </p>
       </div>
       <div className="flex justify-center lg:gap-8 md:gap-6 gap-4">
@@ -50,25 +57,33 @@ const Countdown = ({ targetDate }) => {
           <p className="border lg:py-8 lg:px-8 md:py-6 md:px-6 py-4 px-4 rounded-full lg:text-6xl md:text-5xl text-3xl font-bold">
             {left.days}
           </p>
-          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">Days</span>
+          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">
+            Days
+          </span>
         </div>
         <div>
           <p className="border lg:py-8 lg:px-8 md:py-6 md:px-6 py-4 px-4 rounded-full lg:text-6xl md:text-5xl text-3xl font-bold">
             {left.hours}
           </p>
-          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">Hours</span>
+          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">
+            Hours
+          </span>
         </div>
         <div>
           <p className="border lg:py-8 lg:px-8 md:py-6 md:px-6 py-4 px-4 rounded-full lg:text-6xl md:text-5xl text-3xl font-bold">
             {left.minutes}
           </p>
-          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">Minutes</span>
+          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">
+            Minutes
+          </span>
         </div>
         <div>
           <p className="border lg:py-8 lg:px-8 md:py-6 md:px-6 py-4 px-4 rounded-full lg:text-6xl md:text-5xl text-3xl font-bold">
             {left.seconds}
           </p>
-          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">Seconds</span>
+          <span className="text-[#d5d4d4b2] lg:text-xl md:text-lg text-sm font-light">
+            Seconds
+          </span>
         </div>
       </div>
 
