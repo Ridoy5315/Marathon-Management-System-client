@@ -36,7 +36,7 @@ const Countdown = ({ nextMarathon }) => {
     );
   }
   return (
-    <div className="text-center relative z-10 text-white lg:pt-12 md:pt-8 pt-6 lg:space-y-14 md:space-y-8 space-y-6">
+    <div className="text-center relative z-10 text-white lg:pt-20 md:pt-8 pt-6 lg:space-y-16 md:space-y-8 space-y-6">
       <div className="lg:space-y-6 md:space-y-3 space-y-2">
         <h4 className="lg:text-3xl md:text-2xl text-xl font-semibold">
           Next Event
@@ -87,11 +87,11 @@ const Countdown = ({ nextMarathon }) => {
         </div>
       </div>
 
-      <div className="">
+      {/* <div className="">
         <button className="bg-secondary-color lg:px-10 lg:py-5 md:px-8 md:py-3 px-4 py-1 rounded-full font-semibold">
           REGISTER NOW
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

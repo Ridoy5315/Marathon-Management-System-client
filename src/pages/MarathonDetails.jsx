@@ -112,7 +112,6 @@ const MarathonDetails = (props) => {
   const handleBack = () => {
     // navigate(backLocation?.state ? backLocation.state : "/");
     navigate(backLocation?.state ? backLocation?.state : "/");
-    console.log(backLocation.state);
   };
 
   return (
@@ -262,7 +261,7 @@ const MarathonDetails = (props) => {
                   >
                     {() => (
                       <div className="lg:text-4xl md:text-3xl text-2xl font-semibold">
-                        {timeLeft.days}
+                        {timeLeft.days <= 0 ? 0 : timeLeft.days}
                       </div>
                     )}
                   </CountdownCircleTimer>
@@ -284,7 +283,7 @@ const MarathonDetails = (props) => {
                   >
                     {() => (
                       <div className="lg:text-4xl md:text-3xl text-2xl font-semibold">
-                        {timeLeft.hours}
+                        {timeLeft.hours <= 0 ? 0 : timeLeft.hours}
                       </div>
                     )}
                   </CountdownCircleTimer>
@@ -306,7 +305,7 @@ const MarathonDetails = (props) => {
                   >
                     {() => (
                       <div className="lg:text-4xl md:text-3xl text-2xl font-semibold">
-                        {timeLeft.minutes}
+                        {timeLeft.minutes <= 0 ? 0 : timeLeft.minutes}
                       </div>
                     )}
                   </CountdownCircleTimer>
@@ -328,7 +327,7 @@ const MarathonDetails = (props) => {
                   >
                     {() => (
                       <div className="lg:text-4xl md:text-3xl text-2xl font-semibold">
-                        {timeLeft.seconds}
+                        {timeLeft.seconds <= 0 ? 0 : timeLeft.seconds}
                       </div>
                     )}
                   </CountdownCircleTimer>

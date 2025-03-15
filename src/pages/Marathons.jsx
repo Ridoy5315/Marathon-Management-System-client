@@ -11,9 +11,6 @@ const Marathons = (props) => {
   const [loading, setLoading] = useState(true);
   const [sort, setSort] = useState("");
   const [startTyping, setStartTyping] = useState(false);
-  if (loading) {
-    <LoadingSpinner></LoadingSpinner>;
-  }
 
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
@@ -25,6 +22,10 @@ const Marathons = (props) => {
     };
     fetchAllMarathons();
   }, [axiosSecure, sort]);
+
+  if (loading) {
+    <LoadingSpinner></LoadingSpinner>;
+  }
 
   // Delay of 1 second
   useEffect(() => {
@@ -41,7 +42,8 @@ const Marathons = (props) => {
           onClick={() => setSort("sort")}
           className="text-white bg-secondary-color py-1 lg:text-xl lg:px-6 px-4 rounded-xl flex items-center gap-2"
         >
-          <TbSortDescending className="lg:text-2xl text-xl"></TbSortDescending>Sort
+          <TbSortDescending className="lg:text-2xl text-xl"></TbSortDescending>
+          Sort
         </button>
       </div>
       <div className="text-center space-y-4">
@@ -83,9 +85,9 @@ const Marathons = (props) => {
             animate={{
               opacity: 1,
               translateX: 0,
-              translateY:0
+              translateY: 0,
             }}
-            transition={{ duration: 0.5, delay: i * 0.2}}
+            transition={{ duration: 0.5, delay: i * 0.2 }}
           >
             <MarathonCard marathon={marathon}></MarathonCard>
           </motion.div>

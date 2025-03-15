@@ -9,9 +9,6 @@ const Navbar = (props) => {
   const [activeButton, setActiveButton] = useState("Login");
   const [dashboardActive, setDashboardActive] = useState(false);
   const {pathname} = useLocation();
-  console.log(pathname)
-  ///dashboard/my-marathon-list
-  ///dashboard/my-apply-list
 
   useEffect(() => {
     if(pathname === "/dashboard/my-marathon-list" || pathname === "/dashboard/my-apply-list"){

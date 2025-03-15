@@ -74,9 +74,9 @@ const SignIn = (props) => {
     });
   };
   return (
-    <div className="hero w-9/12 mx-auto min-h-screen">
+    <div className="hero lg:w-9/12 w-11/12 mx-auto min-h-screen pt-20">
       <div className="hero-content flex-row gap-8">
-        <div className="text-center lg:text-left">
+        <div className="text-center lg:text-left lg:block md:block hidden">
           <Lottie animationData={signInLottieData}></Lottie>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
